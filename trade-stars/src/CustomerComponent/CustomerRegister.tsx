@@ -1,4 +1,3 @@
-import React from 'react'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -9,6 +8,13 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import React, { useState } from "react";
+import { createNewCustomer } from '../remote/trade-stars/trade-stars-functions';
+
+
+
+
+
 
 function Copyright() {
   return (
@@ -43,8 +49,49 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Register() {
+export const  Register: React.FunctionComponent = (props) => {
   const classes = useStyles();
+
+  const [firstName, changeFirstName] = useState("");
+  const [lastName, changeLastName] = useState("");
+  const [username, changeUsername] = useState("");
+  const [password, changePassword] = useState("");
+
+  const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    changeFirstName(e.target.value);
+  };
+
+  const handleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    changeLastName(e.target.value);
+  };
+  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    changeUsername(e.target.value);
+  };
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    changePassword(e.target.value);
+  };
+
+
+    // Synthetic event is from react for creating a standard event between different browsers
+    const handleSubmitCustomer =  (e: React.SyntheticEvent) => {
+
+      // Prevent default html submit behaviour
+       e.preventDefault();
+      try{
+       //Submit new customer to database
+       let customer =  createNewCustomer(
+        firstName,
+        lastName,
+        username,
+        password
+       );
+
+        console.log(customer)
+       }catch  (e) {
+        console.log(e.message);
+      }
+
+    };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -56,11 +103,13 @@ export default function Register() {
         <Typography component="h1" variant="h5">
           Customer Registration
         </Typography>
-        <form className={classes.form} noValidate>
+        <form onSubmit={handleSubmitCustomer} noValidate autoComplete="off">
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="fname"
+                value = {firstName}
+                onChange={handleFirstNameChange}
                 name="firstName"
                 variant="outlined"
                 required
@@ -72,6 +121,8 @@ export default function Register() {
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
+                value = {lastName}
+                onChange={handleLastNameChange}
                 variant="outlined"
                 required
                 fullWidth
@@ -83,6 +134,8 @@ export default function Register() {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                value = {username}
+                onChange={handleUsernameChange}
                 variant="outlined"
                 required
                 fullWidth
@@ -94,6 +147,8 @@ export default function Register() {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                value = {password}
+                onChange={handlePasswordChange}
                 variant="outlined"
                 required
                 fullWidth
@@ -111,9 +166,8 @@ export default function Register() {
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}
           >
-            Sign Up
+            Register
           </Button>
           <Grid container justify="flex-end">
             <Grid item>

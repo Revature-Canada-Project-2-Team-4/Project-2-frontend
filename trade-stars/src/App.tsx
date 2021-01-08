@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Register from './CustomerComponent/CustomerRegister';
+import { Register } from './CustomerComponent/CustomerRegister';
 
 function App() {
   return (
@@ -8,8 +8,7 @@ function App() {
       <header className="App-header">
         <h1>Branch example</h1>
 
-        <Register></Register>
-       
+       <Register></Register>
         
       </header>
     </div>

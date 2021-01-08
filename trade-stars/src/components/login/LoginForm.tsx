@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Grid, TextField } from "@material-ui/core";
-import { ersLogin } from "../../remote/ers/ers-functions";
+import { tsLogin } from "../../remote/trade-stars/trade-stars-functions";
 import { User } from "../../models/User";
 import { useHistory } from "react-router";
 
@@ -31,14 +31,14 @@ export const LoginForm: React.FunctionComponent<ILoginProps> = (props) => {
     e.preventDefault();
     // Send username and password along with token
     try {
-      let user = await ersLogin(username, password);
+      let user = await tsLogin(username, password);
       props.updateCurrentUser(user);
       console.log(user)
       // TODO: redirect user to either employee dashboard or manager dashboard based on role
       if(user.userRoleId === 1) {
-        history.push("/manager");
+        // navigate based on user role
       } else {
-        history.push("/employee");
+        // navigate based on user role
       }
     } catch (e) {
       changePassword("");

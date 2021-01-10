@@ -16,6 +16,6 @@ export class Company {
 
 export class Services {
     serviceId: number
-    service_type: string
-    service_price: number
+    serviceType: string
+    servicePrice: number
 }

@@ -1,29 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import {FNTextField} from './remote/trade-stars/components/TradesmanRegistration/Firstname';
-import { LNTextField } from './remote/trade-stars/components/TradesmanRegistration/LastName';
-
+import { TradesmenDescriptionRegister } from './components/register/TradesmenDescriptionRegister';
+import TradesmenCompanySignin from './components/register/TradesmenCompanySignin';
+import { TradesmenRegister } from './components/register/TradesmenRegister';
+import { Register } from './CustomerComponent/CustomerRegister';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <h1>Branch example</h1>
-        <FNTextField/>
-        <LNTextField/>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+       <Router>
+       <Route path= "/" exact component = {TradesmenRegister} />
+       <Route path= "/TradesmenDescriptionRegister" exact component = {TradesmenDescriptionRegister} />
+       <Route path= "/TradesmenCompanySignin" exact component = {TradesmenCompanySignin} />
+       </Router>
       </header>
     </div>
   );

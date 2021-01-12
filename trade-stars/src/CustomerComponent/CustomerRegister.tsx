@@ -56,6 +56,7 @@ export const  Register: React.FunctionComponent = (props) => {
   const [lastName, changeLastName] = useState("");
   const [username, changeUsername] = useState("");
   const [password, changePassword] = useState("");
+  const [email, changeEmail] = useState("");
 
   const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     changeFirstName(e.target.value);
@@ -71,7 +72,10 @@ export const  Register: React.FunctionComponent = (props) => {
     changePassword(e.target.value);
   };
 
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    changeEmail(e.target.value);
 
+  };
     // Synthetic event is from react for creating a standard event between different browsers
     const handleSubmitCustomer =  (e: React.SyntheticEvent) => {
 
@@ -83,10 +87,10 @@ export const  Register: React.FunctionComponent = (props) => {
         firstName,
         lastName,
         username,
-        password
+        password,
+        email
        );
 
-        console.log(customer)
        }catch  (e) {
         console.log(e.message);
       }
@@ -100,9 +104,10 @@ export const  Register: React.FunctionComponent = (props) => {
         <Avatar className={classes.avatar}>
     
         </Avatar>
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" variant="h6">
           Customer Registration
         </Typography>
+      <br></br>
         <form onSubmit={handleSubmitCustomer} noValidate autoComplete="off">
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
@@ -159,9 +164,23 @@ export const  Register: React.FunctionComponent = (props) => {
                 autoComplete="current-password"
               />
             </Grid>
-            
+            <Grid item xs={12}>
+              <TextField
+                value = {email}
+                onChange={handleEmailChange}
+                variant="outlined"
+                required
+                fullWidth
+                id="email"
+                label="Email"
+                name="email"
+                autoComplete="email"
+              />
+            </Grid>
           </Grid>
+          <br></br>
           <Button
+            
             type="submit"
             fullWidth
             variant="contained"

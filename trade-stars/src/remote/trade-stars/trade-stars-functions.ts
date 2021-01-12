@@ -20,29 +20,33 @@ export const tsLogin = async (username: string, password: string) => {
     }
 }
 
-export const createNewCustomer = async (firstName:string, lastName:string, username:string, password:string) =>{
+export const createNewCustomer = async (firstName:string, lastName:string, username:string, password:string, email:string) =>{
 
     let newCustomer = {
             firstName,
             lastName,
             username,
-            password
+            password,
+            email,
+            userRole: 1
+               
+            
 
     }
 
     console.log(newCustomer)
-//     try{
+    try{
 
-//         let res = await tradeStarApi.post('/newUser', newCustomer);
-//         console.log(res.data);
-//         return res.data;
-//     }catch(e) {
-//         console.log(e);
-//         if(e.response){
-//             throw new Error(e.response.data);
-//         } else {
-//             throw new Error("Oops something went wrong")
-//         }
-//     }
+        let res = await tradeStarApi.post('/users', newCustomer);
+        console.log(res.data);
+        return res.data;
+    }catch(e) {
+        console.log(e);
+        if(e.response){
+            throw new Error(e.response.data);
+        } else {
+            throw new Error("Oops something went wrong")
+        }
+    }
 
  }

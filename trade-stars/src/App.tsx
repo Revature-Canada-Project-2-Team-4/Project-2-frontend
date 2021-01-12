@@ -19,10 +19,10 @@ function App() {
       <header className="App-header">
         
       <Router>
-      <Route path="/">
+      <Route path="/dashboard">
         <ClippedDrawer updateCurrentUser={changeUser} currentUser={user}/>
       </Route>
-      <Route path="/login">
+      <Route exact path="/">
         <LoginForm updateCurrentUser={changeUser} currentUser={user}/>
       </Route>
       </Router>

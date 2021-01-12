@@ -28,6 +28,8 @@ export const TradesmanProfile: React.FunctionComponent<ITradesmanProfile> = (pro
       <>
       <div>
             <p>View app</p>
+            <p> views trademan info</p>
+            <p> matt </p>
         </div>
       
  

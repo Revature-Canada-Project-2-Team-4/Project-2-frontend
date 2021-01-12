@@ -34,6 +34,7 @@ import { User } from "../../models/User";
 import RateReviewIcon from "@material-ui/icons/RateReview";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { ApproveAppointments } from "../approvereject/ApproveAppointments";
 
 const drawerWidth = 240;
 
@@ -119,7 +120,7 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
       >
         <Toolbar />
         <div className={classes.drawerContainer}>
-          {1 == 1 ? (
+          {(false) ? (
             <List>
               {["My Info", "View Upcoming Appointments", "Logout"].map(
                 (text, index) => (
@@ -198,6 +199,12 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
           </Route>
           <Route path={`${path}/TradesmanProfile`}>
             <TradesmanProfile
+              updateCurrentUser={props.updateCurrentUser}
+              currentUser={props.currentUser}
+            />
+          </Route>
+          <Route path={`${path}/ApproveAppointments`}>
+            <ApproveAppointments
               updateCurrentUser={props.updateCurrentUser}
               currentUser={props.currentUser}
             />

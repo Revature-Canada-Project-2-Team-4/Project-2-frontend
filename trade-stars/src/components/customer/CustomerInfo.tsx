@@ -28,7 +28,8 @@ export const CustomerInfo: React.FunctionComponent<ICustomerInfo> = (props) => {
     return (
       <>
       <h1>CustomerInfo</h1>
-      
+      <p> What will be in here: Something like a profile card with customer details </p>
+      <p> matt </p>
       </>
     );
   };

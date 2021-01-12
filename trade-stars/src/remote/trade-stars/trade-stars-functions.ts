@@ -7,7 +7,7 @@ export const tsLogin = async (username: string, password: string) => {
     }
 
     try {
-        let res = await tradeStarApi.post('/login', credentials);
+        let res = await tradeStarApi.post('/auth', credentials);
         console.log(res.data);
         return res.data;
     }catch(e) {

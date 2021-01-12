@@ -35,10 +35,9 @@ export const LoginForm: React.FunctionComponent<ILoginProps> = (props) => {
       props.updateCurrentUser(user);
       console.log(user)
       // TODO: redirect user to either employee dashboard or manager dashboard based on role
-      if(user.userRoleId === 1) {
-        // navigate based on user role
-      } else {
-        // navigate based on user role
+      if(user) {
+        // navigate based on if user is returned
+        history.push("/dashboard");
       }
     } catch (e) {
       changePassword("");

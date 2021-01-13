@@ -17,6 +17,7 @@ import EventIcon from '@material-ui/icons/Event';
 import { BrowserRouter as Router,Link, Route, Switch, useHistory } from "react-router-dom";
 import { ClippedDrawer } from '../side-nav/ClippedDrawer';
 import { User } from '../../models/User';
+import { ProfileCard } from '../profile-card/ProfileCard';
 
 interface ICustomerInfo {
     updateCurrentUser: (u:User) => void
@@ -27,9 +28,9 @@ export const CustomerInfo: React.FunctionComponent<ICustomerInfo> = (props) => {
    
     return (
       <>
-      <h1>CustomerInfo</h1>
-      <p> What will be in here: Something like a profile card with customer details </p>
-      <p> matt </p>
+      <div>
+      <ProfileCard currentUser={props.currentUser} />
+      </div>
       </>
     );
   };

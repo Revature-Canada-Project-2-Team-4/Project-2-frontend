@@ -17,6 +17,7 @@ import EventIcon from '@material-ui/icons/Event';
 import { BrowserRouter as Router,Link, Route, Switch, useHistory } from "react-router-dom";
 import { ClippedDrawer } from '../../side-nav/ClippedDrawer';
 import { User } from '../../../models/User';
+import { ProfileCard } from '../../profile-card/ProfileCard';
 
 interface ITradesmanProfile {
     updateCurrentUser: (u:User) => void
@@ -27,7 +28,7 @@ export const TradesmanProfile: React.FunctionComponent<ITradesmanProfile> = (pro
     return (
       <>
       <div>
-            <p>View app</p>
+            <ProfileCard currentUser={props.currentUser} />
         </div>
       
  

@@ -28,8 +28,11 @@ export const ViewAppointments: React.FunctionComponent<IViewAppointments> = (pro
   
     return (
       <>
-      <div>
+        <div>
             <p>View app</p>
+            <p>top card or table for upcoming - call db to get with date in future </p>
+            <p>bottom card or table for past appoints - get appointments with dates in past and completed</p>
+            <p>Whoever needs a task, grab this</p>
         </div>
       </>
     );

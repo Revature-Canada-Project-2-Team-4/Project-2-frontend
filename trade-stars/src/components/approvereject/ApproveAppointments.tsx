@@ -29,6 +29,7 @@ export const ApproveAppointments: React.FunctionComponent<IApproveAppointments> 
       <>
       <div>
             <p>View app</p>
+            <p> Raminder </p>
         </div>
       
  

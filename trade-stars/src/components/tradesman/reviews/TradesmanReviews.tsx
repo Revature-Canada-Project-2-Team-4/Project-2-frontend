@@ -28,6 +28,7 @@ export const TradesmanReviews: React.FunctionComponent<ITradesmanReviews> = (pro
       <>
       <div>
             <p>View app</p>
+            <p> Samin </p>
         </div>
       
  

@@ -17,6 +17,7 @@ import EventIcon from "@material-ui/icons/Event";
 import {
   BrowserRouter as Router,
   Link,
+  Redirect,
   Route,
   Switch,
   useHistory,
@@ -120,7 +121,7 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
       >
         <Toolbar />
         <div className={classes.drawerContainer}>
-          {(false) ? (
+          {(props.currentUser && props.currentUser.userRole.roleId === 1) ? (
             <List>
               {["My Info", "View Upcoming Appointments", "Logout"].map(
                 (text, index) => (
@@ -145,7 +146,7 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
                 )
               )}
             </List>
-          ) : (
+          ) : ((props.currentUser && props.currentUser.userRole.roleId === 2) ? 
             <List>
               {[
                 "My Profile",
@@ -177,7 +178,7 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
                   <ListItemText primary={text} />
                 </ListItem>
               ))}
-            </List>
+            </List> : <div>Please login</div>
           )}
           <Divider />
         </div>

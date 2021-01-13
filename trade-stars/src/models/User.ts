@@ -4,7 +4,10 @@ export class User{
     lastName: string
     username: string
     password: string
-    userRoleId: number    
+    userRole: {
+        roleId: number
+        userRole: string
+    } 
 }
 
 

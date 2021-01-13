@@ -58,23 +58,29 @@ export const createNewCustomer = async (firstName:string, lastName:string, usern
             firstName,
             lastName,
             username,
-            password
+            password,
+            userRole: 2
 
     }
 
     console.log(newTradesmen)
-}
 
-export const createNewService = async (serviceType:string, servicePrice:string) =>{
-
-    let newService = {
-            serviceType,
-            servicePrice,
-
+    try {
+        let res = await tradeStarApi.post('/users', newTradesmen);
+        console.log(res.data);
+        return res.data;
+    }catch(e) {
+        console.log(e);
+        if(e.response){
+            throw new Error(e.response.data);
+         } else {
+    throw new Error("Oops something went wrong")
     }
-
-    console.log(newService)
 }
+ }
+
+
+
 
 export const createNewCompany = async (companyName:string, companyType:string) =>{
 
@@ -86,4 +92,6 @@ export const createNewCompany = async (companyName:string, companyType:string) =
     }
 
     console.log(newCompany)
+
+    
 }

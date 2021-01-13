@@ -61,7 +61,7 @@ export const  TradesmenRegister: React.FunctionComponent = (props) => {
 
 
   function clickHandler() {
-    window.location.href = "./TradesmenDescriptionRegister"
+    window.location.href = "./TradesmenCompanyRegister"
   }
 
 

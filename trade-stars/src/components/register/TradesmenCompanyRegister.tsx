@@ -18,7 +18,7 @@ import Select from '@material-ui/core/Select';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 
 
-import{Link} from 'react-router-dom'
+import{Link, useHistory} from 'react-router-dom'
 import { createNewCompany } from '../../remote/trade-stars/company-register-functions';
 import { User } from '../../models/User';
 
@@ -71,11 +71,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 );
   
   export const TradesmenCompanyRegister:React.FunctionComponent<ILoginProps> = (props) => {
+
+    let history = useHistory();
     const classes = useStyles();
 
     const [companyName, changeCompanyName] = useState("");
     const [companyType, changeCompanyType] = useState("");
-    const [companyOwner, changeCompanyOwner] = useState(0);
+    const [companyOwner, changeCompanyOwner] = useState(props.currentUser);
 
 
     const handleCompanyNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,9 +89,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     };
 
 
-    const handlecompanyOwnerChange = ()  => {
-        changeCompanyOwner(props.currentUser.userId);
-    };
 
 
 
@@ -100,17 +99,23 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 
     // Synthetic event is from react for creating a standard event between different browsers
-    const handleSubmitTradesmenDesc = (e: React.SyntheticEvent) => {
+    const handleSubmitTradesmenDesc = async (e: React.SyntheticEvent) => {
 
         // Prevent default html submit behaviour
         e.preventDefault();
             
+        
+        
         try {
            // Submit new company to database
-            let company = createNewCompany(
+            let company = await createNewCompany(
                 companyName,
-                companyOwner = props.currentUser.userId
+                companyOwner,
             );
+
+            if (company) {
+                history.push('/dashboard');
+            }
 
             console.log("company");
         } catch (e) {

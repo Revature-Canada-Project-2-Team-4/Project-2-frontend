@@ -1,16 +1,17 @@
 import {tradeStarApi} from ".";
+import { User } from "../../models/User";
 
-export const createNewCompany = async (companyName:string, ownerID: number) =>{
+export const createNewCompany = async (companyName:string, companyOwner: User) =>{
 
     let newCompany = {
-            companyName:
+            companyName,
             companyOwner
     }
 
     console.log(newCompany)
     try{
 
-        let res = await tradeStarApi.post('/users', newCompany);
+        let res = await tradeStarApi.post('/companies', newCompany);
         console.log(res.data);
         return res.data;
     }catch(e) {

@@ -1,5 +1,8 @@
-export class company {
+import { User } from "./User"
+
+export class Company {
     companyId: number
     companyName: string
-    companyOwner: number
+    companyType: string
+    companyOwner: User 
 }

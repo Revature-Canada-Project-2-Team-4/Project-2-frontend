@@ -48,14 +48,13 @@ export const createNewCustomer = async (firstName:string, lastName:string, usern
 
  }
 
- export const createNewTradesman = async (firstName:string, lastName:string, username:string, password:string, email:string) =>{
+ export const createNewTradesmen = async (firstName:string, lastName:string, username:string, password:string) =>{
 
     let newCustomer = {
             firstName,
             lastName,
             username,
             password,
-            email,
             userRole: 2
     }
 

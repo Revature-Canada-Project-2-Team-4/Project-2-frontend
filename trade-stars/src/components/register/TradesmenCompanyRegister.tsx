@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 
 import Container from '@material-ui/core/Container';
 import React, { useState } from "react";
-import { createNewCompany} from '../../remote/trade-stars/trade-stars-functions';
+// import { createNewCompany} from '../../remote/trade-stars/trade-stars-functions';
 
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -96,12 +96,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 
         try {
             //Submit new company to database
-            let company = createNewCompany(
-                companyName,
-                companyType
-            );
+            // let company = createNewCompany(
+            //     companyName,
+            //     companyType
+            // );
 
-            console.log(company);
+            console.log("company");
         } catch (e) {
             console.log(e.message);
         }

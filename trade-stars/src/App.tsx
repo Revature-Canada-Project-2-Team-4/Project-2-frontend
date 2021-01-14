@@ -23,7 +23,10 @@ function App() {
       
       <Router>
       
-      <Route path= "/TradesmenCompanyRegister" exact component = {TradesmenCompanyRegister} />
+
+      <Route path= "/TradesmenCompanyRegister"> 
+      <TradesmenCompanyRegister updateCurrentUser={changeUser} currentUser={user}/> 
+      </Route>
       <Route path="/dashboard">
         <ClippedDrawer updateCurrentUser={changeUser} currentUser={user}/>
       </Route>

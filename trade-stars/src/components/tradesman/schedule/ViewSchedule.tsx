@@ -27,10 +27,20 @@ export const ViewSchedule: React.FunctionComponent<IViewSchedule> = (props) => {
     
     return (
       <>
-      <div>
-            <p>View app</p>
-        </div>
-      
+      <div className="table-responsive">
+      <table className="table table-striped">
+        <thead>
+          <tr>
+              <th scope="col" >  
+              </th>
+          </tr>
+        </thead>
+        <tbody>
+                <tr>
+                </tr>
+        </tbody>
+      </table>
+    </div>
  
       </>
     );

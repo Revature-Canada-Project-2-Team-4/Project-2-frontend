@@ -2,7 +2,7 @@ import { Link, Switch } from 'react-router-dom';
 import React, { useState } from 'react';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
-import { Register } from './CustomerComponent/CustomerRegister';
+import { Register } from './customer-comp/CustomerRegister';
 import { ClippedDrawer } from './components/side-nav/ClippedDrawer';
 import { Button } from '@material-ui/core';
 import { ViewAppointments } from './components/customer/view-app/ViewAppointments';

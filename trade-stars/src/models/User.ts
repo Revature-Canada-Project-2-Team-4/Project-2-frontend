@@ -4,10 +4,12 @@ export class User{
     lastName: string
     username: string
     password: string
-    userRole: {
-        roleId: number
-        userRole: string
-    } 
+    userRole: UserRoles
+}
+
+export class UserRoles {
+    roleId: number
+    userRole: string
 }
 
 

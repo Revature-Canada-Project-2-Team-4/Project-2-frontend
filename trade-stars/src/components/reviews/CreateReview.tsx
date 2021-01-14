@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function MultilineTextFields() {
+export const CreateReview: React.FunctionComponent<any> = (props) =>  {
   const classes = useStyles();
   const [review, changeReview] = React.useState('Controlled');
   const [stars, changeStars] = useState("");

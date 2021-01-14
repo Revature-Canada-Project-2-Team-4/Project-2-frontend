@@ -1,10 +1,14 @@
+import { Company } from "./Company"
+import { Service } from "./Service"
+import { User } from "./User"
+
 export class Appointment {
     appointmentId: number
-    customerId: any
-    companyId: number
+    customerId: User
+    companyId: Company
     appointmentStart: string
     appointmentEnd: string
     appointmentConfirmed: boolean
-    forService: number
+    forService: Service
     appointmentCompleted: boolean
 }

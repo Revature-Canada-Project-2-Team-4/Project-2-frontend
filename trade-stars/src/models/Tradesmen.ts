@@ -6,11 +6,5 @@ export class Tradesmen {
     lastName: string
 }
 
-export class Company {
-    companyId: number
-    companyName: string
-    companyType: string
-    
-}
 
 

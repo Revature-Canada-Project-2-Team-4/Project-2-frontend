@@ -34,6 +34,22 @@ export const ViewAppointments: React.FunctionComponent<IViewAppointments> = (pro
             <p>bottom card or table for past appoints - get appointments with dates in past and completed</p>
             <p>Whoever needs a task, grab this</p>
         </div>
+        <div className="table-responsive">
+      <table className="table table-striped">
+        <thead>View Upcoming Appointments
+          <tr>Manik
+              <th scope="col" >12 pm  
+              </th>
+          </tr>
+        </thead>
+        <tbody>
+                <tr>Samin
+                </tr>
+        </tbody>
+      </table>
+    </div>
+
+
       </>
     );
   };

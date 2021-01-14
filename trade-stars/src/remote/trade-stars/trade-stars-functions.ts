@@ -29,9 +29,6 @@ export const createNewCustomer = async (firstName:string, lastName:string, usern
             password,
             email,
             userRole: 1
-               
-            
-
     }
 
     console.log(newCustomer)
@@ -51,47 +48,61 @@ export const createNewCustomer = async (firstName:string, lastName:string, usern
 
  }
 
+ export const createNewTradesman = async (firstName:string, lastName:string, username:string, password:string, email:string) =>{
 
- export const createNewTradesmen = async (firstName:string, lastName:string, username:string, password:string) =>{
-
-    let newTradesmen = {
+    let newCustomer = {
             firstName,
             lastName,
             username,
             password,
+            email,
             userRole: 2
-
     }
 
-    console.log(newTradesmen)
+    console.log(newCustomer)
+    try{
 
-    try {
-        let res = await tradeStarApi.post('/users', newTradesmen);
+        let res = await tradeStarApi.post('/users', newCustomer);
         console.log(res.data);
         return res.data;
     }catch(e) {
         console.log(e);
         if(e.response){
             throw new Error(e.response.data);
-         } else {
-    throw new Error("Oops something went wrong")
+        } else {
+            throw new Error("Oops something went wrong")
+        }
     }
-}
+
  }
 
+ {/*export const serviceDisplay = async (serviceId:number, companyName:string, companyOwner: string, password:string, servicePrice: number,companyType:string,serviceTypes:string,
+    providedBy:number) =>{
 
-
-
-export const createNewCompany = async (companyName:string, companyType:string) =>{
-
-    let newCompany = {
-        companyName,
-        companyType,
-
-
+    let newService = {
+        companyId:number
+        serviceId:number
+        companyName:string
+        companyOwner: string
+        servicePrice: number
+        companyType:string
+        serviceTypes:string
+        providedBy:number
     }
 
-    console.log(newCompany)
+    console.log(newService)
+    try{
 
-    
-}
+        let res = await tradeStarApi.post('/services', newService);
+        console.log(res.data);
+        return res.data;
+    }catch(e) {
+        console.log(e);
+        if(e.response){
+            throw new Error(e.response.data);
+        } else {
+            throw new Error("Oops something went wrong")
+        }
+    }
+
+ }*/}

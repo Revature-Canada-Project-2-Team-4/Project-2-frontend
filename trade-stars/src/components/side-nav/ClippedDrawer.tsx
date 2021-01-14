@@ -36,6 +36,11 @@ import RateReviewIcon from "@material-ui/icons/RateReview";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { ApproveAppointments } from "../approvereject/ApproveAppointments";
+import HomeIcon from '@material-ui/icons/Home';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
+import { CustomerDashboard } from "../customer/customer-dashboard/CustomerDashboard";
+
 
 const drawerWidth = 240;
 
@@ -81,6 +86,8 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
       history.push(`${path}/CustomerInfo`);
     } else if (index === 1) {
       history.push(`${path}/ViewAppointments`);
+    } else if (index === 2) {
+      history.push(`${path}/CustomerDashboard`);
     } else {
       history.push("/");
     }
@@ -108,7 +115,7 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" noWrap>
-            Your Dashboard
+            <HomeIcon/>      Your Dashboard
           </Typography>
         </Toolbar>
       </AppBar>
@@ -123,7 +130,7 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
         <div className={classes.drawerContainer}>
           {(props.currentUser && props.currentUser.userRole.roleId === 1) ? (
             <List>
-              {["My Info", "View Upcoming Appointments", "Logout"].map(
+              {["My Info", "View Upcoming Appointments","View Services", "Logout"].map(
                 (text, index) => (
                   <ListItem
                     button
@@ -137,6 +144,8 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
                         <InfoIcon />
                       ) : index === 1 ? (
                         <EventIcon />
+                      ) : index === 2 ? (
+                        <BusinessCenterIcon/>
                       ) : (
                         <ExitToAppIcon />
                       )}
@@ -164,7 +173,7 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
                 >
                   <ListItemIcon>
                     {index === 0 ? (
-                      <InfoIcon />
+                      <AccountCircleIcon />
                     ) : index === 1 ? (
                       <RateReviewIcon />
                     ) : index === 2 ? (
@@ -224,6 +233,12 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
           </Route>
           <Route path={`${path}/ViewSchedule`}>
             <ViewSchedule
+              updateCurrentUser={props.updateCurrentUser}
+              currentUser={props.currentUser}
+            />
+          </Route>
+          <Route path={`${path}/CustomerDashboard`}>
+            <CustomerDashboard
               updateCurrentUser={props.updateCurrentUser}
               currentUser={props.currentUser}
             />

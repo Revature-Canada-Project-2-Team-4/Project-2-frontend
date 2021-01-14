@@ -19,7 +19,14 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 
 
 import{Link} from 'react-router-dom'
+import { createNewCompany } from '../../remote/trade-stars/company-register-functions';
+import { User } from '../../models/User';
 
+
+interface ILoginProps {
+    updateCurrentUser: (u: User) => void;
+    currentUser: User;
+  }
 
 const linkStyle = {
     color: 'white',
@@ -63,11 +70,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 }),
 );
   
-  export function TradesmenCompanyRegister(e: React.SyntheticEvent) {
+  export const TradesmenCompanyRegister:React.FunctionComponent<ILoginProps> = (props) => {
     const classes = useStyles();
 
     const [companyName, changeCompanyName] = useState("");
     const [companyType, changeCompanyType] = useState("");
+    const [companyOwner, changeCompanyOwner] = useState(0);
 
 
     const handleCompanyNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,6 +87,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     };
 
 
+    const handlecompanyOwnerChange = ()  => {
+        changeCompanyOwner(props.currentUser.userId);
+    };
 
 
 
@@ -93,13 +104,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 
         // Prevent default html submit behaviour
         e.preventDefault();
-
+            
         try {
-            //Submit new company to database
-            // let company = createNewCompany(
-            //     companyName,
-            //     companyType
-            // );
+           // Submit new company to database
+            let company = createNewCompany(
+                companyName,
+                companyOwner = props.currentUser.userId
+            );
 
             console.log("company");
         } catch (e) {
@@ -134,7 +145,7 @@ const useStyles = makeStyles((theme: Theme) => ({
                                 name="companyName"
                                 autoComplete="companyName" />
                         </Grid>
-                        <Grid item xs={12}>
+                        {/* <Grid item xs={12}>
                             <TextField
                                 value={companyType}
                                 onChange={handlecompanyTypeChange}
@@ -146,7 +157,7 @@ const useStyles = makeStyles((theme: Theme) => ({
                                 type="companyType"
                                 id="companyType"
                                 autoComplete="companyType" />
-                        </Grid>
+                        </Grid> */}
 
                     </Grid>
                     <Button

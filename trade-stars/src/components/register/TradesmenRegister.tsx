@@ -9,7 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import React, { useState } from "react";
-import { createNewTradesmen } from '../../remote/trade-stars/trade-stars-functions';
+import { createNewTradesmen } from '../../remote/trade-stars/ts-register-functions';
+import { useHistory } from 'react-router-dom';
 
 
 
@@ -39,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const  TradesmenRegister: React.FunctionComponent = (props) => {
   const classes = useStyles();
+  let history = useHistory();
 
   const [firstName, changeFirstName] = useState("");
   const [lastName, changeLastName] = useState("");
@@ -61,25 +63,29 @@ export const  TradesmenRegister: React.FunctionComponent = (props) => {
 
 
   function clickHandler() {
-    window.location.href = "./TradesmenCompanyRegister"
+    //window.location.href = "./TradesmenCompanyRegister"
+    console.log("here")
   }
 
 
     // Synthetic event is from react for creating a standard event between different browsers
-    const handleSubmitTradesmen =  (e: React.SyntheticEvent) => {
+    const handleSubmitTradesmen =  async (e: React.SyntheticEvent) => {
 
       // Prevent default html submit behaviour
        e.preventDefault();
       try{
        //Submit new customer to database
-       let tradesmen =  createNewTradesmen(
+       let tradesmen =  await createNewTradesmen(
         firstName,
         lastName,
         username,
         password
        );
 
-        console.log(tradesmen)
+        console.log(tradesmen);
+        if(tradesmen) {
+          history.push('/TradesmenCompanyRegister')
+        }
        }catch  (e) {
         console.log(e.message);
       }

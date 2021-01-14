@@ -48,32 +48,7 @@ export const createNewCustomer = async (firstName:string, lastName:string, usern
 
  }
 
- export const createNewTradesmen = async (firstName:string, lastName:string, username:string, password:string) =>{
-
-    let newCustomer = {
-            firstName,
-            lastName,
-            username,
-            password,
-            userRole: 2
-    }
-
-    console.log(newCustomer)
-    try{
-
-        let res = await tradeStarApi.post('/users', newCustomer);
-        console.log(res.data);
-        return res.data;
-    }catch(e) {
-        console.log(e);
-        if(e.response){
-            throw new Error(e.response.data);
-        } else {
-            throw new Error("Oops something went wrong")
-        }
-    }
-
- }
+ 
 
  {/*export const serviceDisplay = async (serviceId:number, companyName:string, companyOwner: string, password:string, servicePrice: number,companyType:string,serviceTypes:string,
     providedBy:number) =>{

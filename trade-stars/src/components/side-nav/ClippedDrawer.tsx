@@ -270,6 +270,8 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
             <CreateReview
               updateCurrentUser={props.updateCurrentUser}
               currentUser={props.currentUser}
+              updateCurrentCompany = {props.updateCurrentCompany}
+              currentCompany = {company}
             />
             </Route>
             

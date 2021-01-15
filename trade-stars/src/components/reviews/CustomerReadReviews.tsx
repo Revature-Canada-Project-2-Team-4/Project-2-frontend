@@ -26,32 +26,28 @@ interface ICustomerReadReviewsProps {
     currentCompany: Company;
     updateCurrentUser: (u: User) => void;
     currentUser: User;
-    updateCurrentCompanyReviewList: (cRL: Review[]) => void;
-    currentReadReviewsList: Review[];
-
-
 
 }
 
 
 export const CustomerReadReviews: React.FunctionComponent<ICustomerReadReviewsProps> = (props) => {
 
-    const [currentCompany] = useState(props.currentCompany);
-    const [currentUser] = useState(props.currentUser);
-    const [reviews, changeReviews] = useState(props.currentReadReviewsList);
+
+    const [reviews, changeReviews] = useState<Review[]>();
 
     const classes = useStyles();
 
     useEffect(() => {
         const getReviews = async () => {
-            let revs = await getReviewsByCompanyId(currentCompany.companyId) 
+            let revs = await getReviewsByCompanyId(props.currentCompany.companyId) 
+            console.log(revs)
             changeReviews(revs)
         } 
         getReviews();
     }, [])
 
 
-    let reviewDisplay = reviews.map((rev) => {
+    let reviewDisplay = (reviews) ? reviews.map((rev) => {
         return (
             <Card className={classes.root}>
                 <CardContent>
@@ -60,7 +56,9 @@ export const CustomerReadReviews: React.FunctionComponent<ICustomerReadReviewsPr
             </Card>
 
         )
+
     })
+    : []
 
     return (
         <>

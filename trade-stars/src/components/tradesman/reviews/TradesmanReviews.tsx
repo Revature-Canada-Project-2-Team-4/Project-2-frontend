@@ -17,6 +17,7 @@ import EventIcon from '@material-ui/icons/Event';
 import { BrowserRouter as Router,Link, Route, Switch, useHistory } from "react-router-dom";
 import { User } from '../../../models/User';
 import { Company } from '../../../models/Company';
+import { CustomerReadReviews } from '../../reviews/CustomerReadReviews';
 
 interface ITradesmanReviews {
     updateCurrentUser: (u:User) => void
@@ -33,10 +34,12 @@ export const TradesmanReviews: React.FunctionComponent<ITradesmanReviews> = (pro
     
     return (
       <>
-      <div>
-            <p>View app</p>
-            <p> Samin </p>
-        </div>
+        <CustomerReadReviews
+         updateCurrentCompany = {props.updateCurrentCompany}
+         currentUser = {props.currentUser}
+         updateCurrentUser =  {props.updateCurrentUser}
+         currentCompany = {props.currentCompany}
+         />
       
  
       </>

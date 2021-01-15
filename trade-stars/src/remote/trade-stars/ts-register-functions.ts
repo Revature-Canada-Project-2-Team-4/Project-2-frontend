@@ -27,4 +27,4 @@ export const createNewTradesmen = async (firstName:string, lastName:string, user
         }
     }
 
- }
+}

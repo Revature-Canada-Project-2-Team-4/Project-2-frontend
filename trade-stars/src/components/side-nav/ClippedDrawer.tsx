@@ -40,6 +40,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import { CustomerDashboard } from "../customer/customer-dashboard/CustomerDashboard";
+import { CreateReview } from "../reviews/CreateReview";
 
 
 const drawerWidth = 240;
@@ -243,6 +244,13 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
               currentUser={props.currentUser}
             />
           </Route>
+          <Route path={`${path}/CreateReview`}>
+            <CreateReview
+              updateCurrentUser={props.updateCurrentUser}
+              currentUser={props.currentUser}
+            />
+            </Route>
+            
         </Switch>
       </main>
     </div>

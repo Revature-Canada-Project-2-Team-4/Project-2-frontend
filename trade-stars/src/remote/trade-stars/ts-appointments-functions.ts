@@ -17,11 +17,7 @@ export const getAllAppointments = async () => {
 
 export const getAllAppointmentsByCompanyId = async (companyId: number) => {
     try {
-        let res = await tradeStarApi.get('/appointments', {
-            params:{
-                companyId
-            }
-        });
+        let res = await tradeStarApi.get(`/appointments/${companyId}`);
         console.log(res.data);
         return res.data;
     }catch(e) {

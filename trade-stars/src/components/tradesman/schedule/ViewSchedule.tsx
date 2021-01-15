@@ -13,10 +13,13 @@ import {
   ButtonGroup,
 } from "@material-ui/core";
 import { Appointment } from "../../../models/Appointment";
+import { Company } from "../../../models/Company";
+import { getAllAppointmentsByCompanyId } from "../../../remote/trade-stars/ts-appointments-functions";
 
 interface IViewSchedule {
   updateCurrentUser: (u: User) => void;
   currentUser: User;
+  currentCompany: Company;
 }
 
 const useStyles = makeStyles({
@@ -32,11 +35,9 @@ export const ViewSchedule: React.FunctionComponent<IViewSchedule> = (props) => {
 
   useEffect(() => {
     const getScheduleRows = async () => {
-      // let appts = await ersGetAllReimbursementsByUser(
-      //   props.currentUser.userId.toString()
-      // );
-      //console.log(appts);
-      changeScheduleAppts([]);
+      let appts = await getAllAppointmentsByCompanyId(props.currentCompany.companyId);
+      console.log(appts);
+      changeScheduleAppts(appts);
     };
     getScheduleRows();
   }, []);
@@ -71,10 +72,10 @@ export const ViewSchedule: React.FunctionComponent<IViewSchedule> = (props) => {
                   <TableCell component="th" scope="row">
                     {appt.appointmentId}
                   </TableCell>
-                  <TableCell align="right">{appt.customerId}</TableCell>
+                  <TableCell align="right">{appt.customerId.username}</TableCell>
                   <TableCell align="right">{appt.appointmentStart}</TableCell>
                   <TableCell align="right">{appt.appointmentEnd}</TableCell>
-                  <TableCell align="right">{appt.forService}</TableCell>
+                  <TableCell align="right">{appt.forService.serviceTypes.serviceType}</TableCell>
                   <TableCell align="right">
                     <ButtonGroup
                       color="primary"

@@ -6,6 +6,12 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 
+import {
+    Card,
+    CardContent,
+    CardHeader,
+  } from "@material-ui/core";
+
 import Container from '@material-ui/core/Container';
 import React, { useState } from "react";
 // import { createNewCompany} from '../../remote/trade-stars/trade-stars-functions';
@@ -41,6 +47,9 @@ const linkStyle = {
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
+    root: {
+        minWidth: 275,
+      },
     paper: {
       marginTop: theme.spacing(8),
       display: 'flex',
@@ -131,6 +140,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     };
 
     return (
+    <Card className={classes.root}>
+        <CardContent>
         <Container component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>
@@ -188,5 +199,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
             </Box>
         </Container>
+        </CardContent>
+  </Card>
     );
 }

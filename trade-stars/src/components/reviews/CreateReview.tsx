@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import  Button  from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import { InputLabel, Select, MenuItem } from '@material-ui/core';
+import { User } from '../../models/User';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,7 +26,12 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export const CreateReview: React.FunctionComponent<any> = (props) =>  {
+interface ICreateReview {
+  updateCurrentUser: (u:User) => void
+  currentUser: User
+}
+
+export const CreateReview: React.FunctionComponent<ICreateReview> = (props) =>  {
   const classes = useStyles();
   const [review, changeReview] = React.useState('Controlled');
   const [stars, changeStars] = useState("");

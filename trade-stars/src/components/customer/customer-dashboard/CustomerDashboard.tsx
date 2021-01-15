@@ -1,13 +1,13 @@
-import classes from '*.module.css';
 import { Button, makeStyles, CardActionArea, CardActions, CardContent, CardMedia, Typography, CardHeader } from '@material-ui/core';
 import Card from '@material-ui/core/Card/Card';
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router,Link, Route, Switch, useHistory } from "react-router-dom";
+import { BrowserRouter as Router,Link, Route, Switch, useHistory, useRouteMatch } from "react-router-dom";
+import { Service } from '../../../models/Service';
 import { User } from '../../../models/User';
-import { ProfileCard } from '../../profile-card/ProfileCard';
+import { getAllTradeServices } from '../../../remote/trade-stars/ts-services-functions';
 const useStyles = makeStyles({
   root: {
-    maxWidth: 850,
+    maxWidth: 950,
   },
 });
 
@@ -19,100 +19,120 @@ interface ICustomerDashboard {
   
 export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (props) => {
   const classes = useStyles();
-
+  const [viewServices, changeViewServices] = useState<Service[]>();
+  const [items] = React.useState([
+    { label: "All",value: "all"},
+    { label: "Electricians", value: "electricians" },
+    { label: "Plumbers", value: "plumbers" },
+    { label: "Contractors", value: "contractors" },
+    { label: "Painters", value: "painters" }
+  ]);
+  useEffect(() => {
+    const getServiceRows = async () => {
+       let serv = await getAllTradeServices();
+      console.log(serv);
+      changeViewServices(serv);
+    };
+    getServiceRows();
+  }, []);
+  let history = useHistory();
+  function AddReview() {
+    history.push(`/dashboard/CreateReview`);
+  }
+  function ViewReview() {
+    history.push(`/dashboard/TradesmanReviews`);
+  }
     return (
       <>
       <h1>Services</h1>
       <label>
           Pick the service you want : &nbsp; &nbsp;
-          <select >
-            <option value="all">All</option>        
-            <option value="electrician">Electricians</option>
-            <option value="plumbers">Plumbers</option>
-            <option value="coconut">Coconut</option>
-            <option value="mango">Mango</option>
+          <select>
+          { items.map(item => ( <option key={item.value} value={item.value}> {item.label}</option> )) }
           </select>
         </label>
-        
-      <Card className={classes.root}>
+        <div>
+        {(viewServices) ? (viewServices.map((serv) => (
+      <Card className={classes.root} key={serv.serviceId} >
       
-      <CardActionArea>
+      <CardActionArea >
       
-        <CardContent><div style={{backgroundColor: '#9013fe',borderRadius:25}}>
+        <CardContent >
+          <div style={{backgroundColor: '#9013fe',borderRadius:25}}  >
           <Typography gutterBottom variant="h4" component="h2"  align='left' >
-            &nbsp; False of plumbers
+            &nbsp; {serv.providedBy.companyName}
           </Typography>
           </div>
-          <Typography variant="body1" component="p" align='left'>
-            Owner : Matt, Samin, Manik, Ramninder
-          </Typography>
-          <Typography variant="body2"  component="p" align='left'>
-            Services : Plumbers , Electricians 
-          </Typography>
-          <Typography variant="body2"  component="p" align='left'>
-            Address : 10 lonestar crescent , L7A2H9
-          </Typography>
-          <Typography variant="body2"  component="p" align='left'>
-            Average Price : $ 50 
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-      
-        <Button style={{
-        borderRadius: 25,
-        backgroundColor: "#9013fe",
-        padding: "13px 26px",
-        fontSize: "14px"
-    }}
-    variant="contained">
-          Book an Appointment
-        </Button>
-        
-        <Button style={{
-        borderRadius: 25,
-        backgroundColor: "#FFFF00",
-        padding: "13px 26px",
-        fontSize: "14px"
-    }}
-    variant="contained">
-          View Reviews
-        </Button>
-        <Button style={{
-        borderRadius: 25,
-        backgroundColor: "#FFFF00",
-        padding: "13px 26px",
-        fontSize: "14px"
-    }}
-    variant="contained" >
-          Give a review
-        </Button>
-        
-      </CardActions>
-    </Card>
-    <br></br>
-    <Card className={classes.root}>
-      <CardActionArea>
-        
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Company number 2
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-            across all continents except Antarctica
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
-      </CardActions>
-    </Card>
+                <Typography variant="h6" component="p" align='left'>
+                Owner of the company :  {serv.providedBy.companyOwner.firstName}
+                </Typography>
+                <Typography variant="body2"  component="p" align='left'>
+                 Types Of services they provide :  {serv.serviceTypes.serviceType}
+                </Typography>
+                <Typography variant="body2"  component="p" align='left'>
+                 Average price for the service : ${serv.servicePrice}.00
+                </Typography>
+                <Typography variant="body2" component="p" align='left'>
+                Email :  {serv.providedBy.companyOwner.email}
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+            <CardActions>
+            
+              <Button style={{
+              borderRadius: 25,
+              backgroundColor: "#9013fe",
+              padding: "13px 26px",
+              fontSize: "14px"
+          }}
+          variant="contained" >
+                Book an Appointment
+              </Button>
+              
+              <Button style={{
+              borderRadius: 25,
+              backgroundColor: "#FFFF00",
+              padding: "13px 26px",
+              fontSize: "14px"
+          }}
+          variant="contained" onClick={() => {ViewReview(); }}>
+                View Reviews
+              </Button>
+              <Button style={{
+              borderRadius: 25,
+              backgroundColor: "#FFFF00",
+              padding: "13px 26px",
+              fontSize: "14px"
+          }}
+          variant="contained" onClick={() => {AddReview(); }}>
+                Give a review
+              </Button>
+              </CardActions>
+              </Card>
+              ))) : (
+          <Card className={classes.root} key={1}> 
+            <CardActionArea>
+              
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  Loading... 
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  Loading..
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+            <CardActions>
+              <Button size="small" color="primary">
+                Share
+              </Button>
+              <Button size="small" color="primary">
+                Learn More
+              </Button>
+            </CardActions>
+          </Card>
+          )}
+   </div>
       </>
     );
   };

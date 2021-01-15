@@ -2,7 +2,7 @@ import {tradeStarApi} from '.';
 
 export const getAllTradeServices = async () => {
     try {
-        let res = await tradeStarApi.get('/auth');
+        let res = await tradeStarApi.get('/offerings');
         console.log(res.data);
         return res.data;
     }catch(e) {

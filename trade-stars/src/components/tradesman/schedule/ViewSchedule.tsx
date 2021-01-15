@@ -40,7 +40,7 @@ export const ViewSchedule: React.FunctionComponent<IViewSchedule> = (props) => {
       changeScheduleAppts(appts);
     };
     getScheduleRows();
-  }, []);
+  }, [props.currentCompany.companyId]);
 
   const markAsCompleted = async (appointmentId: number) => {
     console.log("need to make call to mark completed")

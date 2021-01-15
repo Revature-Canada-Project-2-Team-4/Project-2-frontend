@@ -15,7 +15,8 @@ import { getReviewsByCompanyId } from '../../remote/trade-stars/ts-reviews-funct
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
-        minWidth: 275,
+        minWidth: 1000,
+        minHeight: 300,
     },
 }),
 );
@@ -49,12 +50,16 @@ export const CustomerReadReviews: React.FunctionComponent<ICustomerReadReviewsPr
 
     let reviewDisplay = (reviews) ? reviews.map((rev) => {
         return (
+            <>
+            { <h1> Reviews </h1> }
             <Card className={classes.root}>
                 <CardContent>
-                    <li>{rev.reviewText}</li>
+                
+                        <ol>{rev.reviewText}</ol>
                 </CardContent>
             </Card>
-
+            
+            </>
         )
 
     })

@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import { getReviewsByCompanyId } from '../../remote/trade-stars/ts-reviews-functions';
 
 
 
@@ -42,8 +43,12 @@ export const CustomerReadReviews: React.FunctionComponent<ICustomerReadReviewsPr
     const classes = useStyles();
 
     useEffect(() => {
-        const getReview = await 
-    })
+        const getReviews = async () => {
+            let revs = await getReviewsByCompanyId(currentCompany.companyId) 
+            changeReviews(revs)
+        } 
+        getReviews();
+    }, [])
 
 
     let reviewDisplay = reviews.map((rev) => {
@@ -57,6 +62,9 @@ export const CustomerReadReviews: React.FunctionComponent<ICustomerReadReviewsPr
         )
     })
 
-    return ( {reviewDisplay}
+    return (
+        <>
+        { reviewDisplay }
+        </>
     );
 }

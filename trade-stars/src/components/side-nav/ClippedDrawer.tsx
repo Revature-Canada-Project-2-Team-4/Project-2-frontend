@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
@@ -41,6 +41,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import { CustomerDashboard } from "../customer/customer-dashboard/CustomerDashboard";
 import { Company } from "../../models/Company";
+import { getCompanyByOwnerId } from "../../remote/trade-stars/ts-companies-functions";
 
 
 const drawerWidth = 240;
@@ -79,6 +80,21 @@ interface IClippedDrawerProps {
 export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
   props
 ) => {
+
+  const [company, changeCompany] = useState<Company>(undefined);
+
+  useEffect(() => {
+    if(props.currentUser.userRole.roleId === 2){
+      //if the user is a tradesman we need to get their company info
+      const getCompany = async () => {
+        let associatedCompany = await getCompanyByOwnerId(props.currentUser.userId);
+        changeCompany(associatedCompany);
+        console.log(associatedCompany);
+        
+      }
+      getCompany();
+    }
+  },[])
 
   const classes = useStyles();
   let {path, url} = useRouteMatch();
@@ -240,6 +256,7 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
             <ViewSchedule
               updateCurrentUser={props.updateCurrentUser}
               currentUser={props.currentUser}
+              currentCompany={company}
             />
           </Route>
           <Route path={`${path}/CustomerDashboard`}>
@@ -252,4 +269,5 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
       </main>
     </div>
   );
+  
 };

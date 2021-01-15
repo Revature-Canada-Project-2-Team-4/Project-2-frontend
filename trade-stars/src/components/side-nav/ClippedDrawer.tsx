@@ -249,7 +249,7 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
               updateCurrentUser={props.updateCurrentUser}
               currentUser={props.currentUser}
               updateCurrentCompany = {props.updateCurrentCompany}
-              currentCompany = {props.currentCompany}
+              currentCompany = {company}
             />
           </Route>
           <Route path={`${path}/ViewSchedule`}>

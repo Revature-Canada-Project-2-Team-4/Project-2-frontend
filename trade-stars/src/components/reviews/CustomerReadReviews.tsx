@@ -51,7 +51,7 @@ export const CustomerReadReviews: React.FunctionComponent<ICustomerReadReviewsPr
         return (
             <Card className={classes.root}>
                 <CardContent>
-                    <li>{rev}</li>
+                    <li>{rev.reviewText}</li>
                 </CardContent>
             </Card>
 

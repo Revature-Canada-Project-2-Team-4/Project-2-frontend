@@ -40,6 +40,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import { CustomerDashboard } from "../customer/customer-dashboard/CustomerDashboard";
+import { Company } from "../../models/Company";
 
 
 const drawerWidth = 240;
@@ -71,6 +72,8 @@ const useStyles = makeStyles((theme: Theme) =>
 interface IClippedDrawerProps {
   updateCurrentUser: (u: User) => void;
   currentUser: User;
+  updateCurrentCompany: (c: Company) => void;
+  currentCompany: Company;
 }
 
 export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
@@ -229,6 +232,8 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
             <TradesmanReviews
               updateCurrentUser={props.updateCurrentUser}
               currentUser={props.currentUser}
+              updateCurrentCompany = {props.updateCurrentCompany}
+              currentCompany = {props.currentCompany}
             />
           </Route>
           <Route path={`${path}/ViewSchedule`}>

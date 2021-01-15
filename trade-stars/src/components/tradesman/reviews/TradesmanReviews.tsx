@@ -16,11 +16,18 @@ import InfoIcon from '@material-ui/icons/Info';
 import EventIcon from '@material-ui/icons/Event';
 import { BrowserRouter as Router,Link, Route, Switch, useHistory } from "react-router-dom";
 import { User } from '../../../models/User';
+import { Company } from '../../../models/Company';
 
 interface ITradesmanReviews {
     updateCurrentUser: (u:User) => void
     currentUser: User
+    updateCurrentCompany: (c:Company) => void
+    currentCompany: Company
   }
+
+  
+
+
 
 export const TradesmanReviews: React.FunctionComponent<ITradesmanReviews> = (props) => {
     

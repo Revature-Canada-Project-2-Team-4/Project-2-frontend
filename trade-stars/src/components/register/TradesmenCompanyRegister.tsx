@@ -21,9 +21,12 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import{Link, useHistory} from 'react-router-dom'
 import { createNewCompany } from '../../remote/trade-stars/company-register-functions';
 import { User } from '../../models/User';
+import { Company } from '../../models/Company';
 
 
-interface ILoginProps {
+interface ITradesmenCompanyRegisterProps {
+    updateCurrentCompany: (c: Company) => void;
+    currentCompany: Company;
     updateCurrentUser: (u: User) => void;
     currentUser: User;
   }
@@ -70,7 +73,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }),
 );
   
-  export const TradesmenCompanyRegister:React.FunctionComponent<ILoginProps> = (props) => {
+  export const TradesmenCompanyRegister:React.FunctionComponent<ITradesmenCompanyRegisterProps> = (props) => {
 
     let history = useHistory();
     const classes = useStyles();
@@ -114,6 +117,7 @@ const useStyles = makeStyles((theme: Theme) => ({
             );
 
             if (company) {
+                props.updateCurrentCompany(company)
                 history.push('/dashboard');
             }
 

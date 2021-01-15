@@ -216,6 +216,7 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
             <CustomerInfo
               updateCurrentUser={props.updateCurrentUser}
               currentUser={props.currentUser}
+              
             />
           </Route>
           <Route path={`${path}/ViewAppointments`}>
@@ -234,6 +235,9 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
             <ApproveAppointments
               updateCurrentUser={props.updateCurrentUser}
               currentUser={props.currentUser}
+               updateCurrentCompany={changeCompany}
+              currentCompany={company}
+
             />
           </Route>
           <Route path={`${path}/TradesmanDashboard`}>

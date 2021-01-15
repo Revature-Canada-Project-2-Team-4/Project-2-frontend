@@ -48,20 +48,18 @@ export const createNewCustomer = async (firstName:string, lastName:string, usern
 
  }
 
- 
-
- {/*export const serviceDisplay = async (serviceId:number, companyName:string, companyOwner: string, password:string, servicePrice: number,companyType:string,serviceTypes:string,
+ {/*export const serviceDisplay = async (serviceId:number, companyName:string, companyOwner: string, password:string, servicePrice: number,companyType:string,serviceTypes:string
     providedBy:number) =>{
 
     let newService = {
         companyId:number
-        serviceId:number
-        companyName:string
-        companyOwner: string
-        servicePrice: number
-        companyType:string
-        serviceTypes:string
-        providedBy:number
+    serviceId:number
+    companyName:string
+    companyOwner: string
+    servicePrice: number
+    companyType:string
+    serviceTypes:string
+    providedBy:number
     }
 
     console.log(newService)

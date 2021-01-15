@@ -65,7 +65,7 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (p
         padding: "13px 26px",
         fontSize: "14px"
     }}
-    variant="contained">
+    variant="contained" >
           Book an Appointment
         </Button>
         

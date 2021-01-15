@@ -39,7 +39,7 @@ function App() {
         <LoginForm updateCurrentUser={changeUser} currentUser={user}/>
       </Route>
       <Route path= "/register" exact component = {TradesmenRegister}>
-        <TradesmenRegister />
+        <TradesmenRegister updateCurrentUser={changeUser} currentUser={user}/>
       </Route>
       <Route exact path="/">
         <LandingPage />

@@ -11,8 +11,12 @@ import Container from '@material-ui/core/Container';
 import React, { useState } from "react";
 import { createNewTradesmen } from '../../remote/trade-stars/ts-register-functions';
 import { useHistory } from 'react-router-dom';
+import { User } from '../../models/User';
 
-
+interface ITradesmanRegisterProps {
+  updateCurrentUser: (u: User) => void;
+  currentUser: User;
+}
 
 
 
@@ -38,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const  TradesmenRegister: React.FunctionComponent = (props) => {
+export const  TradesmenRegister: React.FunctionComponent<ITradesmanRegisterProps> = (props) => {
   const classes = useStyles();
   let history = useHistory();
 
@@ -81,7 +85,7 @@ export const  TradesmenRegister: React.FunctionComponent = (props) => {
         username,
         password
        );
-
+        props.updateCurrentUser(tradesmen);
         console.log(tradesmen);
         if(tradesmen) {
           history.push('/TradesmenCompanyRegister')

@@ -6,6 +6,12 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 
+import {
+    Card,
+    CardContent,
+    CardHeader,
+  } from "@material-ui/core";
+
 import Container from '@material-ui/core/Container';
 import React, { useState } from "react";
 // import { createNewCompany} from '../../remote/trade-stars/trade-stars-functions';
@@ -21,9 +27,12 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import{Link, useHistory} from 'react-router-dom'
 import { createNewCompany } from '../../remote/trade-stars/company-register-functions';
 import { User } from '../../models/User';
+import { Company } from '../../models/Company';
 
 
-interface ILoginProps {
+interface ITradesmenCompanyRegisterProps {
+    updateCurrentCompany: (c: Company) => void;
+    currentCompany: Company;
     updateCurrentUser: (u: User) => void;
     currentUser: User;
   }
@@ -38,6 +47,9 @@ const linkStyle = {
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
+    root: {
+        minWidth: 275,
+      },
     paper: {
       marginTop: theme.spacing(8),
       display: 'flex',
@@ -70,7 +82,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }),
 );
   
-  export const TradesmenCompanyRegister:React.FunctionComponent<ILoginProps> = (props) => {
+  export const TradesmenCompanyRegister:React.FunctionComponent<ITradesmenCompanyRegisterProps> = (props) => {
 
     let history = useHistory();
     const classes = useStyles();
@@ -114,6 +126,7 @@ const useStyles = makeStyles((theme: Theme) => ({
             );
 
             if (company) {
+                props.updateCurrentCompany(company)
                 history.push('/dashboard');
             }
 
@@ -127,6 +140,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     };
 
     return (
+    <Card className={classes.root}>
+        <CardContent>
         <Container component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>
@@ -184,5 +199,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
             </Box>
         </Container>
+        </CardContent>
+  </Card>
     );
 }

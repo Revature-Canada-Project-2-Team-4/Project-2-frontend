@@ -64,6 +64,11 @@ export const LoginForm: React.FunctionComponent<ILoginProps> = (props) => {
       console.log(user);
       // TODO: redirect user to either employee dashboard or manager dashboard based on role
       if (user) {
+
+        // if (props.currentUser.userRole.roleId == 2) {
+        //   let company = await 
+        //   // make a fxn to get a single company
+        // }
         // navigate based on if user is returned
         history.push("/dashboard");
       }

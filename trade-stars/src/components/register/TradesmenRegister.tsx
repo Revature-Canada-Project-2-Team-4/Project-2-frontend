@@ -2,7 +2,11 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-
+import {
+  Card,
+  CardContent,
+  CardHeader,
+} from "@material-ui/core";
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
@@ -23,6 +27,9 @@ interface ITradesmanRegisterProps {
 
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    minWidth: 275,
+  },
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
@@ -97,6 +104,8 @@ export const  TradesmenRegister: React.FunctionComponent<ITradesmanRegisterProps
     };
 
   return (
+    <Card className={classes.root}>
+      <CardContent>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -185,5 +194,7 @@ export const  TradesmenRegister: React.FunctionComponent<ITradesmanRegisterProps
       <Box mt={5}>
       </Box>
     </Container>
+    </CardContent>
+  </Card>
   );
 }

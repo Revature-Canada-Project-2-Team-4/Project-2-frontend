@@ -5,6 +5,8 @@ import  Button  from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import { InputLabel, Select, MenuItem } from '@material-ui/core';
 import { User } from '../../models/User';
+import { Company } from '../../models/Company';
+import { createNewReview } from '../../remote/trade-stars/create-review-functions';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,48 +31,48 @@ const useStyles = makeStyles((theme: Theme) =>
 interface ICreateReview {
   updateCurrentUser: (u:User) => void
   currentUser: User
+  updateCurrentCompany: (c:Company) => void
+  currentCompany: Company
 }
 
 export const CreateReview: React.FunctionComponent<ICreateReview> = (props) =>  {
+
   const classes = useStyles();
-  const [review, changeReview] = React.useState('Controlled');
-  const [stars, changeStars] = useState("");
+  const [review, changeReview] = useState("");
+  const [reviewedBy] = useState(props.currentUser);
+  const [reviewedFor] = useState(props.currentCompany);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     changeReview(event.target.value);
   };
 
-  const handleStarChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    changeStars(event.target.value as string);
-};
+  const handleSubmitCreateReview = async (e: React.SyntheticEvent) => {
 
-  function clickHandler() {
-    console.log('Button was clicked');
-    // <Link to = "/TradesmenCompanySignin"></Link>
-}
+    e.preventDefault();
+
+    try {
+      // Submit new review to database
+       let CreateReview = await createNewReview(
+        review,
+        reviewedBy,
+        reviewedFor,
+       );
+
+
+       console.log(CreateReview);
+       alert("Review has been created")
+   } catch (e) {
+       console.log(e.message);
+   }
+
+  };
 
   return (
-    <form className={classes.root} noValidate autoComplete="off">    
+    
+    <form onSubmit = {handleSubmitCreateReview} className={classes.root} noValidate autoComplete="off">    
+    <h1> Enter Review for </h1>
+    <h1> {props.currentCompany}</h1>
       <div>
-        <div>
-        <FormControl className={classes.formControl}>
-        <InputLabel id="demo-simple-select-label">Review Rating</InputLabel>
-                <Select 
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value = {stars}
-                    fullWidth                      
-                    onChange = {handleStarChange}                  
-                >
-               <MenuItem value={"1"}>1</MenuItem>
-               <MenuItem value={"2"}>2</MenuItem>
-               <MenuItem value={"3"}>3</MenuItem>
-               <MenuItem value={"4"}>4</MenuItem>
-               <MenuItem value={"5"}>5</MenuItem>
-                </Select>
-        </FormControl>
-        </div>
-
         <TextField
           value = {review}  
           onChange = {handleChange}
@@ -87,7 +89,7 @@ export const CreateReview: React.FunctionComponent<ICreateReview> = (props) =>  
             fullWidth
             variant="contained"
             color="primary"
-            onClick={clickHandler}    
+              
         >       
         Submit
         </Button>

@@ -74,6 +74,8 @@ const useStyles = makeStyles((theme: Theme) =>
 interface IClippedDrawerProps {
   updateCurrentUser: (u: User) => void;
   currentUser: User;
+  updateCurrentCompany: (c: Company) => void;
+  currentCompany: Company;
 }
 
 export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
@@ -247,6 +249,8 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
             <TradesmanReviews
               updateCurrentUser={props.updateCurrentUser}
               currentUser={props.currentUser}
+              updateCurrentCompany = {props.updateCurrentCompany}
+              currentCompany = {company}
             />
           </Route>
           <Route path={`${path}/ViewSchedule`}>
@@ -273,4 +277,5 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
       </main>
     </div>
   );
+  
 };

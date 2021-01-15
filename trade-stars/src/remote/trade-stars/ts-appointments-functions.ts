@@ -29,3 +29,18 @@ export const getAllAppointmentsByCompanyId = async (companyId: number) => {
         }
     }
 }
+
+export const getAllAppointmentsByCustomerId = async (customerId: number) => {
+    try{
+        let res = await tradeStarApi.get(`/appointments/customer/${customerId}`);
+        console.log(res.data);
+        return res.data;
+    }catch(e) {
+        console.log(e);
+        if(e.response){
+            throw new Error(e.response.data);
+        } else {
+            throw new Error("Unable to fetch all appointments")
+        }
+    }
+}

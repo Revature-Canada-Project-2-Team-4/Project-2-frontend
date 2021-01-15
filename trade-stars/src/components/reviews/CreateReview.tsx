@@ -28,15 +28,15 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-interface ITradesmanReviews {
+interface ICreateReview {
   updateCurrentUser: (u:User) => void
   currentUser: User
   updateCurrentCompany: (c:Company) => void
   currentCompany: Company
 }
 
+export const CreateReview: React.FunctionComponent<ICreateReview> = (props) =>  {
 
-export const CreateReview: React.FunctionComponent<ITradesmanReviews> = (props) =>  {
   const classes = useStyles();
   const [review, changeReview] = useState("");
   const [reviewedBy] = useState(props.currentUser);

@@ -38,7 +38,7 @@ interface ICreateReview {
 export const CreateReview: React.FunctionComponent<ICreateReview> = (props) =>  {
 
   const classes = useStyles();
-  const [review, changeReview] = useState("Default message");
+  const [review, changeReview] = useState("Please enter your review !!");
   const [reviewedBy] = useState(props.currentUser);
   const [reviewedFor] = useState(props.currentCompany);
 
@@ -70,8 +70,7 @@ export const CreateReview: React.FunctionComponent<ICreateReview> = (props) =>  
   return (
     
     <form onSubmit = {handleSubmitCreateReview} className={classes.root} noValidate autoComplete="off">    
-    <h1> Enter Review for </h1>
-    <h1> {props.currentCompany.companyName}</h1>
+    <h1> Enter Review for {props.currentCompany.companyName}</h1>
       <div>
         <TextField
           value = {review}  
@@ -79,13 +78,13 @@ export const CreateReview: React.FunctionComponent<ICreateReview> = (props) =>  
           id="outlined-multiline-static"
           label="Review"
           multiline
-          rows={25}
+          rows={10}
           variant="outlined"
         />
       </div>
         <Button
             type="submit"
-            fullWidth
+            
             variant="contained"
             color="primary"
               

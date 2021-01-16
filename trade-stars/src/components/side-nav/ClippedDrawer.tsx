@@ -43,6 +43,7 @@ import { CustomerDashboard } from "../customer/customer-dashboard/CustomerDashbo
 import { CreateReview } from "../reviews/CreateReview";
 import { Company } from "../../models/Company";
 import { getCompanyByOwnerId } from "../../remote/trade-stars/ts-companies-functions";
+import { BookAppointment } from "../book-appointment/BookAppointment";
 
 
 const drawerWidth = 240;
@@ -76,6 +77,7 @@ interface IClippedDrawerProps {
   currentUser: User;
   updateCurrentCompany: (c: Company) => void;
   currentCompany: Company;
+  
 }
 
 export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
@@ -251,6 +253,14 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
           </Route>
           <Route path={`${path}/TradesmanReviews`}>
             <TradesmanReviews
+              updateCurrentUser={props.updateCurrentUser}
+              currentUser={props.currentUser}
+              updateCurrentCompany = {props.updateCurrentCompany}
+              currentCompany = {company}
+            />
+          </Route>
+          <Route path={`${path}/BookAppointment`}>
+            <BookAppointment
               updateCurrentUser={props.updateCurrentUser}
               currentUser={props.currentUser}
               updateCurrentCompany = {props.updateCurrentCompany}

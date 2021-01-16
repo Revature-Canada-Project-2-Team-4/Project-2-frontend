@@ -5,6 +5,7 @@ import { BrowserRouter as Router,Link, Route, Switch, useHistory, useRouteMatch 
 import { Service } from '../../../models/Service';
 import { User } from '../../../models/User';
 import { getAllTradeServices } from '../../../remote/trade-stars/ts-services-functions';
+import { BookAppointment } from '../../book-appointment/BookAppointment';
 const useStyles = makeStyles({
   root: {
     maxWidth: 950,
@@ -41,6 +42,9 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (p
   }
   function ViewReview() {
     history.push(`/dashboard/TradesmanReviews`);
+  }
+  function BookAppointment() {
+    history.push(`/dashboard/BookAppointment`);
   }
     return (
       <>
@@ -85,7 +89,7 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (p
               padding: "13px 26px",
               fontSize: "14px"
           }}
-          variant="contained" >
+          variant="contained" onClick={() => {BookAppointment(); }} >
                 Book an Appointment
               </Button>
               

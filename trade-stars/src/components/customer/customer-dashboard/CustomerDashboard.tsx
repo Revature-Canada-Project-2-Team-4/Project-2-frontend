@@ -2,6 +2,7 @@ import { Button, makeStyles, CardActionArea, CardActions, CardContent, CardMedia
 import Card from '@material-ui/core/Card/Card';
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router,Link, Route, Switch, useHistory, useRouteMatch } from "react-router-dom";
+import { Company } from '../../../models/Company';
 import { Service } from '../../../models/Service';
 import { User } from '../../../models/User';
 import { getAllTradeServices } from '../../../remote/trade-stars/ts-services-functions';
@@ -16,6 +17,8 @@ const useStyles = makeStyles({
 interface ICustomerDashboard {
     updateCurrentUser: (u:User) => void
     currentUser: User
+    updateCurrentCompany: (c: Company) => void;
+    currentCompany: Company;
   }
   
 export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (props) => {
@@ -37,7 +40,8 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (p
     getServiceRows();
   }, []);
   let history = useHistory();
-  function AddReview() {
+  function AddReview(company: Company) {
+    props.updateCurrentCompany(company);
     history.push(`/dashboard/CreateReview`);
   }
   function ViewReview() {
@@ -108,7 +112,7 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (p
               padding: "13px 26px",
               fontSize: "14px"
           }}
-          variant="contained" onClick={() => {AddReview(); }}>
+          variant="contained" onClick={() => {AddReview(serv.providedBy); }}>
                 Give a review
               </Button>
               </CardActions>

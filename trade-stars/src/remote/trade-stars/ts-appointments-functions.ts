@@ -1,5 +1,5 @@
 import { tradeStarApi } from '.';
-import { Company } from '../../models/Company';
+import { Appointment } from '../../models/Appointment';
 
 export const getAllAppointments = async () => {
     try {
@@ -31,36 +31,38 @@ export const getAllAppointmentsByCompanyId = async (companyId: number) => {
     }
 }
 
-export const createNewAppointment = async (appointment_for: number, appointment_company: number, appointment_start: Date, appointment_end: Date, appointment_for_service: number ) =>{
+export const getAllAppointmentsByCustomerId = async (customerId: number) => {
+    try{
+        let res = await tradeStarApi.get(`/appointments/customer/${customerId}`);
+        console.log(res.data);
+        return res.data;
+    }catch(e) {
+        console.log(e);
+        if(e.response){
+            throw new Error(e.response.data);
+        } else {
+            throw new Error("Unable to fetch all appointments")
+        }
+    }
+}
 
-    let createAppointment = {
-        appointment_for,
-        appointment_company,
-        appointment_start,
-        appointment_end,
-        appointment_for_service,
-        appointment_confirmed: false,
-        appointment_completed: false
+export const updateAppointmentCompletedById = async (appointment: Appointment, isCompleted:boolean) => {
 
+    let updatedAppt = {
+        ...appointment,
+        appointmentCompleted: isCompleted
     }
 
-    console.log(createAppointment)
-
-    // try{
-
-    //     // THIS NEEDS TO BE UPDATED SO WILL COMMENT OUT FOR NOW!!
-
-    //     let res = await tradeStarApi.post('/appointments', createAppointment);
-    //     console.log(res.data);
-    //     return res.data;
-    // }catch(e) {
-    //     console.log(e);
-    //     if(e.response){
-    //         throw new Error(e.response.data);
-    //     } else {
-    //         throw new Error("Oops something went wrong")
-    //     }
-    // }
-
-
+    try {
+        let res = await tradeStarApi.put(`appointments/`, updatedAppt);
+        console.log(res.data);
+        return res.data;
+    }catch(e) {
+        console.log(e);
+        if(e.response){
+            throw new Error(e.response.data);
+        } else {
+            throw new Error("Unable to fetch all appointments")
+        }
+    }
 }

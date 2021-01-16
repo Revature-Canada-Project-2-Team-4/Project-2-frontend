@@ -14,7 +14,7 @@ import {
 } from "@material-ui/core";
 import { Appointment } from "../../../models/Appointment";
 import { Company } from "../../../models/Company";
-import { getAllAppointmentsByCompanyId } from "../../../remote/trade-stars/ts-appointments-functions";
+import { getAllAppointmentsByCompanyId, updateAppointmentCompletedById } from "../../../remote/trade-stars/ts-appointments-functions";
 
 interface IViewSchedule {
   updateCurrentUser: (u: User) => void;
@@ -40,14 +40,16 @@ export const ViewSchedule: React.FunctionComponent<IViewSchedule> = (props) => {
       changeScheduleAppts(appts);
     };
     getScheduleRows();
-  }, []);
+  }, [props.currentCompany.companyId]);
 
-  const markAsCompleted = async (appointmentId: number) => {
+  const markAsCompleted = async (appointment: Appointment) => {
     console.log("need to make call to mark completed")
+    let updatedAppt = await updateAppointmentCompletedById(appointment, true);
   }
 
-  const markAsCancelled = async (appointmentId: number) => {
+  const markAsCancelled = async (appointment: Appointment) => {
     console.log("need to make call to mark cancelled")
+    let updatedAppt = await updateAppointmentCompletedById(appointment, false);
   }
 
   return (
@@ -83,14 +85,14 @@ export const ViewSchedule: React.FunctionComponent<IViewSchedule> = (props) => {
                     >
                       <Button
                         onClick={() => {
-                          markAsCancelled(appt.appointmentId);
+                          markAsCancelled(appt);
                         }}
                       >
                         Cancel
                       </Button>
                       <Button
                         onClick={() => {
-                          markAsCompleted(appt.appointmentId);
+                          markAsCompleted(appt);
                         }}
                       >
                         Complete

@@ -10,13 +10,13 @@ import {
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import { getReviewsByCompanyId } from '../../remote/trade-stars/ts-reviews-functions';
-
+import StarsIcon from '@material-ui/icons/Stars';
 
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
-        minWidth: 1000,
-        minHeight: 300,
+        minWidth: 500,
+        minHeight: 70,
     },
 }),
 );
@@ -51,11 +51,12 @@ export const CustomerReadReviews: React.FunctionComponent<ICustomerReadReviewsPr
     let reviewDisplay = (reviews) ? reviews.map((rev) => {
         return (
             <>
-            { <h1> Reviews </h1> }
+            { <h1> Reviews given by customers for <br></br>
+                 {props.currentCompany.companyName}</h1> }
             <Card className={classes.root}>
                 <CardContent>
-                
-                        <ol>{rev.reviewText}</ol>
+                <StarsIcon></StarsIcon> &nbsp; &nbsp; {rev.reviewedBy.firstName} {rev.reviewedBy.lastName} reviewed  : 
+                        " {rev.reviewText} "                     
                 </CardContent>
             </Card>
             

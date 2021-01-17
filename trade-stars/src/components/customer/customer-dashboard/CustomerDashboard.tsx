@@ -1,39 +1,24 @@
-import {
-  Button,
-  makeStyles,
-  CardActionArea,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Typography,
-  CardHeader,
-} from "@material-ui/core";
-import Card from "@material-ui/core/Card/Card";
-import React, { useEffect, useState } from "react";
-import {
-  BrowserRouter as Router,
-  Link,
-  Route,
-  Switch,
-  useHistory,
-  useRouteMatch,
-} from "react-router-dom";
-import { Company } from "../../../models/Company";
-import { Service } from "../../../models/Service";
-import { User } from "../../../models/User";
-import {
-  getAllServicesTypes,
-  getAllTradeServices,
-} from "../../../remote/trade-stars/ts-services-functions";
-import RateReviewIcon from "@material-ui/icons/RateReview";
-import BusinessCenterRoundedIcon from "@material-ui/icons/BusinessCenterRounded";
-import BuildRoundedIcon from "@material-ui/icons/BuildRounded";
-import { createStyles, Theme } from "@material-ui/core/styles";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import { ServiceTypes } from "../../../models/ServiceTypes";
+import { Button, makeStyles, CardActionArea, CardActions, CardContent, CardMedia, Typography, CardHeader, Grid } from '@material-ui/core';
+import Card from '@material-ui/core/Card/Card';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router,Link, Route, Switch, useHistory, useRouteMatch } from "react-router-dom";
+import { Company } from '../../../models/Company';
+import { Service } from '../../../models/Service';
+import { User } from '../../../models/User';
+import { getAllServicesTypes, getAllTradeServices } from '../../../remote/trade-stars/ts-services-functions';
+import RateReviewIcon from '@material-ui/icons/RateReview';
+import BusinessCenterRoundedIcon from '@material-ui/icons/BusinessCenterRounded';
+import BuildRoundedIcon from '@material-ui/icons/BuildRounded';
+import { createStyles, Theme } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import { ServiceTypes } from '../../../models/ServiceTypes';
+import EventIcon from "@material-ui/icons/Event";
+import ViewListIcon from '@material-ui/icons/ViewList';
+import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -63,7 +48,6 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (
   const classes = useStyles();
   const [viewServices, changeViewServices] = useState<Service[]>();
   const [serviceTypes, changeServiceTypes] = useState<ServiceTypes[]>([]);
-  const [selectedType, changeSelectedType] = useState("");
 
   useEffect(() => {
     const getServiceRows = async () => {
@@ -92,88 +76,97 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (
   return (
     <>
       <h1>Services</h1>
-      <div>
-        {viewServices ? (
-          viewServices.map((serv) => (
-              <Card className={classes.root} key={serv.serviceId}>
-                <CardActionArea>
-                  <CardContent>
-                    <div
-                      style={{ backgroundColor: "#9013fe", borderRadius: 25 }}
-                    >
-                      <Typography
-                        gutterBottom
-                        variant="h4"
-                        component="h2"
-                        align="left"
-                      >
-                        &nbsp; <BusinessCenterRoundedIcon />
-                        &nbsp; <BuildRoundedIcon />
-                        &nbsp; {serv.providedBy.companyName}
-                      </Typography>
-                    </div>
-                    <Typography variant="h6" component="p" align="left">
-                      Owner of the company :{" "}
-                      {serv.providedBy.companyOwner.firstName}
-                    </Typography>
-                    <Typography variant="body2" component="p" align="left">
-                      Types of services they provide :{" "}
-                      {serv.serviceTypes.serviceType}
-                    </Typography>
-                    <Typography variant="body2" component="p" align="left">
-                      Average price for the service : ${serv.servicePrice}
-                    </Typography>
-                    <Typography variant="body2" component="p" align="left">
-                      Email : {serv.providedBy.companyOwner.email}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-                <CardActions>
-                  <Button
-                    style={{
-                      borderRadius: 25,
-                      backgroundColor: "#9013fe",
-                      padding: "13px 26px",
-                      fontSize: "14px",
-                    }}
-                    variant="contained"
-                  >
-                    Book an Appointment
-                  </Button>
-
-                  <Button
-                    style={{
-                      borderRadius: 25,
-                      backgroundColor: "#FFFF00",
-                      padding: "13px 26px",
-                      fontSize: "14px",
-                    }}
-                    variant="contained"
-                    onClick={() => {
-                      ViewReview(serv.providedBy);
-                    }}
-                  >
-                    View Reviews
-                  </Button>
-                  <Button
-                    style={{
-                      borderRadius: 25,
-                      backgroundColor: "#FFFF00",
-                      padding: "13px 26px",
-                      fontSize: "14px",
-                    }}
-                    variant="contained"
-                    onClick={() => {
-                      AddReview(serv.providedBy);
-                    }}
-                  >
-                    <RateReviewIcon /> &nbsp; Give a review
-                  </Button>
-                </CardActions>
+        
+        <div>
+        {(viewServices) ? (viewServices.map((serv) => (
+      <Card className={classes.root} key={serv.serviceId} >
+      
+      <CardActionArea >
+      
+        <CardContent >
+          <div style={{backgroundColor: '#9013fe',borderRadius:25}}  >
+          <Typography gutterBottom variant="h4" component="h2"  align='left' >
+          &nbsp; <BuildRoundedIcon color="secondary" />&nbsp; {serv.providedBy.companyName}
+          </Typography>
+          </div>
+          <Grid
+              container
+              direction="row"
+              justify="flex-start"
+              
+              spacing={0}
+            >
+                <Typography variant="h6" component="p" align='left'>
+                Owner of the company :  {serv.providedBy.companyOwner.firstName}
+                </Typography>
+                <Typography variant="h6"  component="p" align='left'>
+                &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp;
+                
+                 Contact Details : 
+                </Typography>
+                </Grid>
+                <Grid
+              container
+              direction="row"
+              justify="flex-start"
+              
+              spacing={0}
+            >
+              <Typography variant="body2"  component="p" align='left'>
+                 Types of services they provide :  {serv.serviceTypes.serviceType}<br></br>
+                </Typography>
+                &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; 
+                
+                <Typography variant="body2" component="p" align='left'>
+                Email :  {serv.providedBy.companyOwner.email}
+                
+                </Typography>
+                </Grid>
+                <Typography variant="body2"  component="p" align='left'>
+                 Average price for the service : ${serv.servicePrice}
+                </Typography>  
+                
+               
+              </CardContent>
+            </CardActionArea>
+            <CardActions>
+            
+              <Button style={{
+              borderRadius: 25,
+              backgroundColor: "#9013fe",
+              padding: "13px 26px",
+              fontSize: "14px"
+          }}
+          variant="contained" >
+                <EventIcon />&nbsp; Book an Appointment
+              </Button>
+              
+              <Button style={{
+              borderRadius: 25,
+              backgroundColor: "#FFFF00",
+              padding: "13px 26px",
+              fontSize: "14px"
+          }}
+          variant="contained" onClick={() => {ViewReview(serv.providedBy); }}>
+               <ViewListIcon/> &nbsp;  View Reviews
+              </Button>
+              <Button style={{
+              borderRadius: 25,
+              backgroundColor: "#FFFF00",
+              padding: "13px 26px",
+              fontSize: "14px"
+          }}
+          variant="contained" onClick={() => {AddReview(serv.providedBy); }}>
+                <RateReviewIcon /> &nbsp; Give a review
+              </Button>
+              </CardActions>
+              
               </Card>
-          ))
-        ) : (
-          <Card className={classes.root} key={1}>
+              ))) : (
+          <Card className={classes.root} key={1}> 
             <CardActionArea>
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">

@@ -28,8 +28,12 @@ export const LandingPage: React.FunctionComponent<any> = (props) => {
   const navToLogin = () => {
     history.push("/login");
   };
-  const navToRegister = () => {
-    history.push("/register");
+  const navToTradesmenRegister = () => {
+    history.push("/tradesmenregister");
+  };
+
+  const navToCustomerRegister = () => {
+    history.push("/customerregister");
   };
 
   return (
@@ -51,13 +55,23 @@ export const LandingPage: React.FunctionComponent<any> = (props) => {
                 Login
               </Button>
             </Grid>
+
             <Grid item>
               <Button
                 variant="contained"
                 color="primary"
-                onClick={navToRegister}
+                onClick={navToCustomerRegister}
               >
-                Register
+                Customer Register
+              </Button>
+
+
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={navToTradesmenRegister}
+              >
+                Tradesmen Register
               </Button>
             </Grid>
           </Grid>

@@ -10,8 +10,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import React, { useState } from "react";
 import { createNewCustomer } from '../remote/trade-stars/trade-stars-functions';
+import{useHistory} from 'react-router-dom'
+import { User } from '../models/User';
 
-
+interface ICustomerRegisterProps {
+  updateCurrentUser: (u: User) => void;
+  currentUser: User;
+}
 
 
 
@@ -49,8 +54,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const  Register: React.FunctionComponent = (props) => {
+export const  Register: React.FunctionComponent<ICustomerRegisterProps> = (props) => {
   const classes = useStyles();
+  let history = useHistory();
+
 
   const [firstName, changeFirstName] = useState("");
   const [lastName, changeLastName] = useState("");
@@ -77,20 +84,23 @@ export const  Register: React.FunctionComponent = (props) => {
 
   };
     // Synthetic event is from react for creating a standard event between different browsers
-    const handleSubmitCustomer =  (e: React.SyntheticEvent) => {
+    const handleSubmitCustomer =  async (e: React.SyntheticEvent) => {
 
       // Prevent default html submit behaviour
        e.preventDefault();
       try{
        //Submit new customer to database
-       let customer =  createNewCustomer(
+       let customer =  await createNewCustomer(
         firstName,
         lastName,
         username,
         password,
         email
        );
-
+       props.updateCurrentUser(customer);
+          if(customer){
+            history.push("/dashboard");
+          }
        }catch  (e) {
         console.log(e.message);
       }

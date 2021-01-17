@@ -5,12 +5,34 @@ import { BrowserRouter as Router,Link, Route, Switch, useHistory, useRouteMatch 
 import { Company } from '../../../models/Company';
 import { Service } from '../../../models/Service';
 import { User } from '../../../models/User';
-import { getAllTradeServices } from '../../../remote/trade-stars/ts-services-functions';
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 950,
-  },
-});
+import { getAllServicesTypes, getAllTradeServices } from '../../../remote/trade-stars/ts-services-functions';
+import RateReviewIcon from '@material-ui/icons/RateReview';
+import BusinessCenterRoundedIcon from '@material-ui/icons/BusinessCenterRounded';
+import BuildRoundedIcon from '@material-ui/icons/BuildRounded';
+import { createStyles, Theme } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import { ServiceTypes } from '../../../models/ServiceTypes';
+
+
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 120,
+    },
+    selectEmpty: {
+      marginTop: theme.spacing(2),
+    },
+    root: {
+      maxWidth: 950,
+    },
+  }),
+);
 
 
 interface ICustomerDashboard {
@@ -23,19 +45,21 @@ interface ICustomerDashboard {
 export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (props) => {
   const classes = useStyles();
   const [viewServices, changeViewServices] = useState<Service[]>();
-  const [items] = React.useState([
-    { label: "All",value: "all"},
-    { label: "Electricians", value: "electricians" },
-    { label: "Plumbers", value: "plumbers" },
-    { label: "Contractors", value: "contractors" },
-    { label: "Painters", value: "painters" }
-  ]);
+  const [serviceTypes, changeServiceTypes] = useState<ServiceTypes[]>();
+  const [selectedType, changeSelectedType] = useState<any>("");
+  
   useEffect(() => {
     const getServiceRows = async () => {
        let serv = await getAllTradeServices();
       console.log(serv);
       changeViewServices(serv);
     };
+    const getServiceTypes = async () => {
+      let servTypes = await getAllServicesTypes();
+     console.log(servTypes);
+     changeServiceTypes(servTypes);
+   };
+   getServiceTypes();
     getServiceRows();
   }, []);
   let history = useHistory();
@@ -43,20 +67,44 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (p
     props.updateCurrentCompany(company);
     history.push(`/dashboard/CreateReview`);
   }
-  function ViewReview() {
+  function ViewReview(company: Company) {
+    props.updateCurrentCompany(company);
     history.push(`/dashboard/TradesmanReviews`);
+  }
+  function selectType(event: React.ChangeEvent<{ value: unknown }>) {
+    changeSelectedType(event.target.value as string);
+    let filterServices = viewServices.filter(item => item.serviceTypes.serviceType === selectedType
+      )
+    changeViewServices(filterServices);
   }
     return (
       <>
       <h1>Services</h1>
       <label>
-          Pick the service you want : &nbsp; &nbsp;
-          <select>
-          { items.map(item => ( <option key={item.value} value={item.value}> {item.label}</option> )) }
-          </select>
-        </label>
+          Pick the service you want : &nbsp; &nbsp; </label>
+          <FormControl variant="outlined" className={classes.formControl}>
+        <InputLabel id="demo-simple-select-outlined-label">Service</InputLabel>
+       
+        {(serviceTypes) ? 
+        <Select
+          labelId="demo-simple-select-outlined-label"
+          id="demo-simple-select-outlined"
+          label="Service Type" 
+          value={selectedType}
+          onChange={selectType}>
+            <MenuItem value=""><em>All</em></MenuItem>
+             {serviceTypes.map((st) => {
+              <MenuItem key= {st.serviceId} value={st.serviceType}>{st.serviceType}</MenuItem>
+            }) }
+            
+        </Select>
+          : <MenuItem value=""><em>Loading...</em></MenuItem>
+        }
+      </FormControl>
+        
         <div>
         {(viewServices) ? (viewServices.map((serv) => (
+          <div><br></br>
       <Card className={classes.root} key={serv.serviceId} >
       
       <CardActionArea >
@@ -64,17 +112,17 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (p
         <CardContent >
           <div style={{backgroundColor: '#9013fe',borderRadius:25}}  >
           <Typography gutterBottom variant="h4" component="h2"  align='left' >
-            &nbsp; {serv.providedBy.companyName}
+          &nbsp; <BusinessCenterRoundedIcon/>&nbsp; <BuildRoundedIcon/>&nbsp; {serv.providedBy.companyName}
           </Typography>
           </div>
                 <Typography variant="h6" component="p" align='left'>
                 Owner of the company :  {serv.providedBy.companyOwner.firstName}
                 </Typography>
                 <Typography variant="body2"  component="p" align='left'>
-                 Types Of services they provide :  {serv.serviceTypes.serviceType}
+                 Types of services they provide :  {serv.serviceTypes.serviceType}
                 </Typography>
                 <Typography variant="body2"  component="p" align='left'>
-                 Average price for the service : ${serv.servicePrice}.00
+                 Average price for the service : ${serv.servicePrice}
                 </Typography>
                 <Typography variant="body2" component="p" align='left'>
                 Email :  {serv.providedBy.companyOwner.email}
@@ -99,7 +147,7 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (p
               padding: "13px 26px",
               fontSize: "14px"
           }}
-          variant="contained" onClick={() => {ViewReview(); }}>
+          variant="contained" onClick={() => {ViewReview(serv.providedBy); }}>
                 View Reviews
               </Button>
               <Button style={{
@@ -109,10 +157,11 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (p
               fontSize: "14px"
           }}
           variant="contained" onClick={() => {AddReview(serv.providedBy); }}>
-                Give a review
+                <RateReviewIcon /> &nbsp; Give a review
               </Button>
               </CardActions>
-              </Card>
+              
+              </Card> </div>
               ))) : (
           <Card className={classes.root} key={1}> 
             <CardActionArea>

@@ -10,10 +10,6 @@ interface ITradesmanReviews {
     currentCompany: Company
   }
 
-  
-
-
-
 export const TradesmanReviews: React.FunctionComponent<ITradesmanReviews> = (props) => {
     
     return (

@@ -3,7 +3,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import  Button  from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
-import { InputLabel, Select, MenuItem } from '@material-ui/core';
+import { InputLabel, Select, MenuItem, Card } from '@material-ui/core';
 import { User } from '../../models/User';
 import { Company } from '../../models/Company';
 import { createNewReview } from '../../remote/trade-stars/create-review-functions';
@@ -38,7 +38,7 @@ interface ICreateReview {
 export const CreateReview: React.FunctionComponent<ICreateReview> = (props) =>  {
 
   const classes = useStyles();
-  const [review, changeReview] = useState("Please enter your review !!");
+  const [review, changeReview] = useState("Please enter your review over here!!");
   const [reviewedBy] = useState(props.currentUser);
   const [reviewedFor] = useState(props.currentCompany);
 
@@ -71,6 +71,7 @@ export const CreateReview: React.FunctionComponent<ICreateReview> = (props) =>  
     
     <form onSubmit = {handleSubmitCreateReview} className={classes.root} noValidate autoComplete="off">    
     <h1> Enter Review for {props.currentCompany.companyName}</h1>
+    <Card className={classes.root}>
       <div>
         <TextField
           value = {review}  
@@ -91,6 +92,7 @@ export const CreateReview: React.FunctionComponent<ICreateReview> = (props) =>  
         >       
         Submit
         </Button>
+        </Card>
     </form>
   );
 }

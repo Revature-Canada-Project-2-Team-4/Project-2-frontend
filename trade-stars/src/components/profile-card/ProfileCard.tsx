@@ -28,7 +28,7 @@ export const ProfileCard: React.FunctionComponent<IProfileCardProps> = (props) =
     <Card className={classes.root}>
       <CardContent>
         <Typography className={classes.pos} variant="h5" component="h2">
-          User Info
+          User Information
         </Typography>
         <AccountCircleIcon></AccountCircleIcon>
         <Typography className={classes.pos} color="textSecondary">
@@ -42,6 +42,9 @@ export const ProfileCard: React.FunctionComponent<IProfileCardProps> = (props) =
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
           Last Name: {props.currentUser && props.currentUser.lastName}
+        </Typography>
+        <Typography className={classes.pos} color="textSecondary">
+          Email : {props.currentUser && props.currentUser.email}
         </Typography>
       </CardContent>
     </Card>

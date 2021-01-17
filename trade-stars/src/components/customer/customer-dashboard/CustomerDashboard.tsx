@@ -1,4 +1,4 @@
-import { Button, makeStyles, CardActionArea, CardActions, CardContent, CardMedia, Typography, CardHeader } from '@material-ui/core';
+import { Button, makeStyles, CardActionArea, CardActions, CardContent, CardMedia, Typography, CardHeader, Grid } from '@material-ui/core';
 import Card from '@material-ui/core/Card/Card';
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router,Link, Route, Switch, useHistory, useRouteMatch } from "react-router-dom";
@@ -16,8 +16,9 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { ServiceTypes } from '../../../models/ServiceTypes';
-
-
+import EventIcon from "@material-ui/icons/Event";
+import ViewListIcon from '@material-ui/icons/ViewList';
+import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -80,8 +81,9 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (p
     return (
       <>
       <h1>Services</h1>
+      <Card className={classes.root}>
       <label>
-          Pick the service you want : &nbsp; &nbsp; </label>
+         <BusinessCenterIcon color="primary"/>  Pick the service you want : &nbsp; &nbsp; </label>
           <FormControl variant="outlined" className={classes.formControl}>
         <InputLabel id="demo-simple-select-outlined-label">Service</InputLabel>
        
@@ -100,7 +102,9 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (p
         </Select>
           : <MenuItem value=""><em>Loading...</em></MenuItem>
         }
+        
       </FormControl>
+      </Card>
         
         <div>
         {(viewServices) ? (viewServices.map((serv) => (
@@ -112,21 +116,50 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (p
         <CardContent >
           <div style={{backgroundColor: '#9013fe',borderRadius:25}}  >
           <Typography gutterBottom variant="h4" component="h2"  align='left' >
-          &nbsp; <BusinessCenterRoundedIcon/>&nbsp; <BuildRoundedIcon/>&nbsp; {serv.providedBy.companyName}
+          &nbsp; <BuildRoundedIcon color="secondary" />&nbsp; {serv.providedBy.companyName}
           </Typography>
           </div>
+          <Grid
+              container
+              direction="row"
+              justify="flex-start"
+              
+              spacing={0}
+            >
                 <Typography variant="h6" component="p" align='left'>
                 Owner of the company :  {serv.providedBy.companyOwner.firstName}
                 </Typography>
-                <Typography variant="body2"  component="p" align='left'>
-                 Types of services they provide :  {serv.serviceTypes.serviceType}
+                <Typography variant="h6"  component="p" align='left'>
+                &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp;
+                
+                 Contact Details : 
                 </Typography>
-                <Typography variant="body2"  component="p" align='left'>
-                 Average price for the service : ${serv.servicePrice}
+                </Grid>
+                <Grid
+              container
+              direction="row"
+              justify="flex-start"
+              
+              spacing={0}
+            >
+              <Typography variant="body2"  component="p" align='left'>
+                 Types of services they provide :  {serv.serviceTypes.serviceType}<br></br>
                 </Typography>
+                &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; 
+                
                 <Typography variant="body2" component="p" align='left'>
                 Email :  {serv.providedBy.companyOwner.email}
+                
                 </Typography>
+                </Grid>
+                <Typography variant="body2"  component="p" align='left'>
+                 Average price for the service : ${serv.servicePrice}
+                </Typography>  
+                
+               
               </CardContent>
             </CardActionArea>
             <CardActions>
@@ -138,7 +171,7 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (p
               fontSize: "14px"
           }}
           variant="contained" >
-                Book an Appointment
+                <EventIcon />&nbsp; Book an Appointment
               </Button>
               
               <Button style={{
@@ -148,7 +181,7 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (p
               fontSize: "14px"
           }}
           variant="contained" onClick={() => {ViewReview(serv.providedBy); }}>
-                View Reviews
+               <ViewListIcon/> &nbsp;  View Reviews
               </Button>
               <Button style={{
               borderRadius: 25,

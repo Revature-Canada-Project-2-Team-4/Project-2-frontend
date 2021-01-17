@@ -19,6 +19,8 @@ interface ICustomerDashboard {
     currentUser: User
     updateCurrentCompany: (c: Company) => void;
     currentCompany: Company;
+    updateCurrentService: (s: Service) => void;
+    currentService: Service
   }
   
 export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (props) => {
@@ -47,7 +49,9 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (p
   function ViewReview() {
     history.push(`/dashboard/TradesmanReviews`);
   }
-  function BookAppointment() {
+  function BookAppointment(service: Service) {
+    props.updateCurrentCompany(service.providedBy);
+    props.updateCurrentService(service);
     history.push(`/dashboard/BookAppointment`);
   }
     return (
@@ -93,7 +97,7 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (p
               padding: "13px 26px",
               fontSize: "14px"
           }}
-          variant="contained" onClick={() => {BookAppointment(); }} >
+          variant="contained" onClick={() => {BookAppointment(serv); }} >
                 Book an Appointment
               </Button>
               

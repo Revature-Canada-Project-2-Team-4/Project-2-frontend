@@ -23,7 +23,9 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { createNewAppointment } from '../../remote/trade-stars/ts-appointments-functions';
+import { createAppointment } from '../../remote/trade-stars/ts-appointments-functions';
+import { useHistory } from 'react-router-dom';
+//import { createNewAppointment } from '../../remote/trade-stars/ts-appointments-functions';
 
 
 
@@ -93,11 +95,14 @@ const useStyles = makeStyles((theme: Theme) => ({
 export const BookAppointment: React.FunctionComponent<IBookAppointmentProps> = (props) => {
 
     const classes = useStyles();
+
+    let history = useHistory();
      
     const [pickedDate, changePickedDate] = useState(new Date());
     // const [appointment_for, changeAppointment_for] = useState(0);
 
-
+    const [appointmentFor] = useState(props.currentUser.userId);
+    const [appointmentCompany] = useState(props.currentCompany);
     const handlePickedDateChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         changePickedDate(event.target.value as Date);
       };
@@ -106,31 +111,27 @@ export const BookAppointment: React.FunctionComponent<IBookAppointmentProps> = (
         
         e.preventDefault();
 
-        const appointmentFor = props.currentUser.userId;
-        const appointmentCompany = props.currentCompany.companyId
-        const appointmentForServices = props.currentService.serviceTypes
 
-        var pickedEndDate = new Date();
-        pickedEndDate.setHours(pickedEndDate.getHours(),pickedEndDate.getMinutes()+60,0,0);
+
+
+       // const appointmentForServices = props.currentService.serviceTypes
+
+
+        var DOpickedEndDate = new Date(pickedDate);
+        DOpickedEndDate.setHours(DOpickedEndDate.getHours(),DOpickedEndDate.getMinutes()+60,0,0);
         
-        console.log(appointmentFor)
-        console.log(appointmentCompany)
-        console.log(appointmentForServices)
-        console.log(pickedDate)
-        console.log(pickedEndDate)
+        var DOpickedDate = new Date(pickedDate)
 
-        // try {
-        //     //Submit appointment to db
-        //     let appointment = await createNewAppointment(
-        //         appointmentFor,
-        //         appointmentCompany,
-        //         appointmentStart,
-        //         appointmentEnd,
-        //         appointmentForservices, 
+   
 
-        //     )
+        try {
+            //Submit appointment to db
+            let appointment = await createAppointment(props.currentUser, props.currentCompany, DOpickedDate, DOpickedEndDate, props.currentService )  
+            console.log(appointment);
+            history.push('/dashboard')
 
-        // } catch {}
+
+        } catch {}
 
     };
 

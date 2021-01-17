@@ -6,8 +6,8 @@ export class Appointment {
     appointmentId: number
     customerId: User
     companyId: Company
-    appointmentStart: string
-    appointmentEnd: string
+    appointmentStart: Date
+    appointmentEnd: Date
     appointmentConfirmed: boolean
     forService: Service
     appointmentCompleted: boolean

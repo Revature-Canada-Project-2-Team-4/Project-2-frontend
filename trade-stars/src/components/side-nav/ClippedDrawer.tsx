@@ -44,6 +44,7 @@ import { CreateReview } from "../reviews/CreateReview";
 import { Company } from "../../models/Company";
 import { getCompanyByOwnerId } from "../../remote/trade-stars/ts-companies-functions";
 import { BookAppointment } from "../book-appointment/BookAppointment";
+import { Service } from "../../models/Service";
 
 
 const drawerWidth = 240;
@@ -77,7 +78,10 @@ interface IClippedDrawerProps {
   currentUser: User;
   updateCurrentCompany: (c: Company) => void;
   currentCompany: Company;
-  
+  // new changes might need fixing
+  // updateCurrentService: (s: Service) => void;
+  // currentService: Service;
+
 }
 
 export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
@@ -85,6 +89,7 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
 ) => {
 
   const [company, changeCompany] = useState<Company>(undefined);
+  const [service, changeService] = useState<Service>(undefined);
 
   useEffect(() => {
     if(props.currentUser.userRole.roleId === 2){
@@ -266,6 +271,9 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
               currentUser={props.currentUser}
               updateCurrentCompany = {props.updateCurrentCompany}
               currentCompany = {company}
+
+              updateCurrentService = {changeService}
+              currentService = {service}
             />
           </Route>
           <Route path={`${path}/ViewSchedule`}>
@@ -281,6 +289,8 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
               currentUser={props.currentUser}
               updateCurrentCompany = {changeCompany}
               currentCompany = {company}
+              updateCurrentService = {changeService}
+              currentService = {service}
             />
           </Route>
           <Route path={`${path}/CreateReview`}>

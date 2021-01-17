@@ -1,5 +1,8 @@
 import { tradeStarApi } from '.';
 import { Appointment } from '../../models/Appointment';
+import { Company } from '../../models/Company';
+import { Service } from '../../models/Service';
+import { User } from '../../models/User';
 
 export const getAllAppointments = async () => {
     try {
@@ -66,3 +69,32 @@ export const updateAppointmentCompletedById = async (appointment: Appointment, i
         }
     }
 }
+
+export const createAppointment = async (customerId: User, companyId: Company, appointmentStart: Date, appointmentEnd: Date, forService: Service) =>{
+
+    let newAppointment = {
+        customerId,
+        companyId,
+        appointmentStart,
+        appointmentEnd,
+        forService,
+        appointmentConfirmed: false,
+        appointmentCompleted: false
+    }
+
+    console.log(newAppointment)
+    try{
+
+        let res = await tradeStarApi.post('/appointments', newAppointment);
+        console.log(res.data);
+        return res.data;
+    }catch(e) {
+        console.log(e);
+        if(e.response){
+            throw new Error(e.response.data);
+        } else {
+            throw new Error("Oops something went wrong")
+        }
+    }
+
+ }

@@ -19,6 +19,7 @@ import { ServiceTypes } from '../../../models/ServiceTypes';
 import EventIcon from "@material-ui/icons/Event";
 import ViewListIcon from '@material-ui/icons/ViewList';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
+import { BookAppointment } from '../../book-appointment/BookAppointment';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,15 +37,15 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface ICustomerDashboard {
-  updateCurrentUser: (u: User) => void;
-  currentUser: User;
-  updateCurrentCompany: (c: Company) => void;
-  currentCompany: Company;
-}
-
-export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (
-  props
-) => {
+    updateCurrentUser: (u:User) => void
+    currentUser: User
+    updateCurrentCompany: (c: Company) => void;
+    currentCompany: Company;
+    updateCurrentService: (s: Service) => void;
+    currentService: Service
+  }
+  
+export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (props) => {
   const classes = useStyles();
   const [viewServices, changeViewServices] = useState<Service[]>();
   const [serviceTypes, changeServiceTypes] = useState<ServiceTypes[]>([]);
@@ -72,9 +73,13 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (
     props.updateCurrentCompany(company);
     history.push(`/dashboard/TradesmanReviews`);
   }
-
-  return (
-    <>
+  function BookAppointment(service: Service) {
+    props.updateCurrentCompany(service.providedBy);
+    props.updateCurrentService(service);
+    history.push(`/dashboard/BookAppointment`);
+  }
+    return (
+      <>
       <h1>Services</h1>
         
         <div>
@@ -140,8 +145,8 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (
               padding: "13px 26px",
               fontSize: "14px"
           }}
-          variant="contained" >
-                <EventIcon />&nbsp; Book an Appointment
+          variant="contained" onClick={() => {BookAppointment(serv); }} >
+                 <EventIcon />&nbsp; Book an Appointment
               </Button>
               
               <Button style={{

@@ -56,9 +56,9 @@ export const ApproveAppointments: React.FunctionComponent<IApproveAppointments> 
     getAppointments();
   }, []);
 
-  const approveAppointments = async (appointmentId:number) => {
+  const approveAppointments = async (appointment: Appointment) => {
     try {
-      let user = await UpdateAppointments(appointmentId, true);
+      let user = await UpdateAppointments(appointment, true);
       console.log(user)
       const getAppointments = async () => {
         let appoint = await getAllAppointmentsByCompanyId(props.currentCompany.companyId)
@@ -72,9 +72,9 @@ export const ApproveAppointments: React.FunctionComponent<IApproveAppointments> 
     }
   }
 
-  const rejectAppointments = async (appointmentId:number) => {
+  const rejectAppointments = async (appointment: Appointment) => {
     try {
-      let user = await UpdateAppointments(appointmentId, false);
+      let user = await UpdateAppointments(appointment, false);
       console.log(user)
       const getAppointments = async () => {
         let appoint = await getAllAppointmentsByCompanyId(props.currentCompany.companyId);
@@ -118,9 +118,9 @@ export const ApproveAppointments: React.FunctionComponent<IApproveAppointments> 
                 <TableCell align="center">{row.customerId.username}</TableCell>
                 <TableCell align="center">{row.companyId.companyName}</TableCell>
                 <TableCell align="center">
-                  {row.appointmentStart}
+                  {new Date(row.appointmentStart).toLocaleString()}
                 </TableCell>
-                <TableCell align="center">{row.appointmentEnd}</TableCell>
+                <TableCell align="center">{new Date(row.appointmentEnd).toLocaleString()}</TableCell>
                 <TableCell align="center">{row.forService.serviceTypes.serviceType}</TableCell>
 
                 
@@ -137,8 +137,8 @@ export const ApproveAppointments: React.FunctionComponent<IApproveAppointments> 
                     color="primary"
                     aria-label="outlined primary button group"
                   >
-                    <Button onClick={() => {rejectAppointments(row.appointmentId)}}>Reject</Button>
-                    <Button onClick={() => {approveAppointments(row.appointmentId)}}>Approve</Button>
+                    <Button onClick={() => {rejectAppointments(row)}}>Reject</Button>
+                    <Button onClick={() => {approveAppointments(row)}}>Approve</Button>
                   </ButtonGroup>
                 </TableCell>
               </TableRow>

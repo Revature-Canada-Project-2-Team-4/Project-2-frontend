@@ -1,18 +1,40 @@
-import { Button, makeStyles, CardActionArea, CardActions, CardContent, CardMedia, Typography, CardHeader } from '@material-ui/core';
+import { Button, makeStyles, CardActionArea, CardActions, CardContent, CardMedia, Typography, CardHeader, Grid } from '@material-ui/core';
 import Card from '@material-ui/core/Card/Card';
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router,Link, Route, Switch, useHistory, useRouteMatch } from "react-router-dom";
 import { Company } from '../../../models/Company';
 import { Service } from '../../../models/Service';
 import { User } from '../../../models/User';
-import { getAllTradeServices } from '../../../remote/trade-stars/ts-services-functions';
+import { getAllServicesTypes, getAllTradeServices } from '../../../remote/trade-stars/ts-services-functions';
+import RateReviewIcon from '@material-ui/icons/RateReview';
+import BusinessCenterRoundedIcon from '@material-ui/icons/BusinessCenterRounded';
+import BuildRoundedIcon from '@material-ui/icons/BuildRounded';
+import { createStyles, Theme } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import { ServiceTypes } from '../../../models/ServiceTypes';
+import EventIcon from "@material-ui/icons/Event";
+import ViewListIcon from '@material-ui/icons/ViewList';
+import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import { BookAppointment } from '../../book-appointment/BookAppointment';
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 950,
-  },
-});
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 120,
+    },
+    selectEmpty: {
+      marginTop: theme.spacing(2),
+    },
+    root: {
+      maxWidth: 950,
+    },
+  })
+);
 
 interface ICustomerDashboard {
     updateCurrentUser: (u:User) => void
@@ -26,27 +48,29 @@ interface ICustomerDashboard {
 export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (props) => {
   const classes = useStyles();
   const [viewServices, changeViewServices] = useState<Service[]>();
-  const [items] = React.useState([
-    { label: "All",value: "all"},
-    { label: "Electricians", value: "electricians" },
-    { label: "Plumbers", value: "plumbers" },
-    { label: "Contractors", value: "contractors" },
-    { label: "Painters", value: "painters" }
-  ]);
+  const [serviceTypes, changeServiceTypes] = useState<ServiceTypes[]>([]);
+
   useEffect(() => {
     const getServiceRows = async () => {
-       let serv = await getAllTradeServices();
-      console.log(serv);
+      let serv = await getAllTradeServices();
       changeViewServices(serv);
     };
+    const getServiceTypes = async () => {
+      let servTypes = await getAllServicesTypes();
+      changeServiceTypes(servTypes);
+    };
+
+    getServiceTypes();
     getServiceRows();
   }, []);
+
   let history = useHistory();
   function AddReview(company: Company) {
     props.updateCurrentCompany(company);
     history.push(`/dashboard/CreateReview`);
   }
-  function ViewReview() {
+  function ViewReview(company: Company) {
+    props.updateCurrentCompany(company);
     history.push(`/dashboard/TradesmanReviews`);
   }
   function BookAppointment(service: Service) {
@@ -57,12 +81,7 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (p
     return (
       <>
       <h1>Services</h1>
-      <label>
-          Pick the service you want : &nbsp; &nbsp;
-          <select>
-          { items.map(item => ( <option key={item.value} value={item.value}> {item.label}</option> )) }
-          </select>
-        </label>
+        
         <div>
         {(viewServices) ? (viewServices.map((serv) => (
       <Card className={classes.root} key={serv.serviceId} >
@@ -72,21 +91,50 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (p
         <CardContent >
           <div style={{backgroundColor: '#9013fe',borderRadius:25}}  >
           <Typography gutterBottom variant="h4" component="h2"  align='left' >
-            &nbsp; {serv.providedBy.companyName}
+          &nbsp; <BuildRoundedIcon color="secondary" />&nbsp; {serv.providedBy.companyName}
           </Typography>
           </div>
+          <Grid
+              container
+              direction="row"
+              justify="flex-start"
+              
+              spacing={0}
+            >
                 <Typography variant="h6" component="p" align='left'>
                 Owner of the company :  {serv.providedBy.companyOwner.firstName}
                 </Typography>
-                <Typography variant="body2"  component="p" align='left'>
-                 Types Of services they provide :  {serv.serviceTypes.serviceType}
+                <Typography variant="h6"  component="p" align='left'>
+                &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp;
+                
+                 Contact Details : 
                 </Typography>
-                <Typography variant="body2"  component="p" align='left'>
-                 Average price for the service : ${serv.servicePrice}.00
+                </Grid>
+                <Grid
+              container
+              direction="row"
+              justify="flex-start"
+              
+              spacing={0}
+            >
+              <Typography variant="body2"  component="p" align='left'>
+                 Types of services they provide :  {serv.serviceTypes.serviceType}<br></br>
                 </Typography>
+                &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp; &nbsp; 
+                
                 <Typography variant="body2" component="p" align='left'>
                 Email :  {serv.providedBy.companyOwner.email}
+                
                 </Typography>
+                </Grid>
+                <Typography variant="body2"  component="p" align='left'>
+                 Average price for the service : ${serv.servicePrice}
+                </Typography>  
+                
+               
               </CardContent>
             </CardActionArea>
             <CardActions>
@@ -98,7 +146,7 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (p
               fontSize: "14px"
           }}
           variant="contained" onClick={() => {BookAppointment(serv); }} >
-                Book an Appointment
+                 <EventIcon />&nbsp; Book an Appointment
               </Button>
               
               <Button style={{
@@ -107,8 +155,8 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (p
               padding: "13px 26px",
               fontSize: "14px"
           }}
-          variant="contained" onClick={() => {ViewReview(); }}>
-                View Reviews
+          variant="contained" onClick={() => {ViewReview(serv.providedBy); }}>
+               <ViewListIcon/> &nbsp;  View Reviews
               </Button>
               <Button style={{
               borderRadius: 25,
@@ -117,17 +165,17 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (p
               fontSize: "14px"
           }}
           variant="contained" onClick={() => {AddReview(serv.providedBy); }}>
-                Give a review
+                <RateReviewIcon /> &nbsp; Give a review
               </Button>
               </CardActions>
+              
               </Card>
               ))) : (
           <Card className={classes.root} key={1}> 
             <CardActionArea>
-              
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
-                  Loading... 
+                  Loading...
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
                   Loading..
@@ -143,8 +191,8 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (p
               </Button>
             </CardActions>
           </Card>
-          )}
-   </div>
-      </>
-    );
-  };
+        )}
+      </div>
+    </>
+  );
+};

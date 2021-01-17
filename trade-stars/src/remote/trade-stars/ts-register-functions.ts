@@ -1,12 +1,13 @@
 import {tradeStarApi} from ".";
 
-export const createNewTradesmen = async (firstName:string, lastName:string, username:string, password:string) =>{
+export const createNewTradesmen = async (firstName:string, lastName:string, username:string, password:string, email: string) =>{
 
     let newTradesmen = {
             firstName,
             lastName,
             username,
             password,
+            email,
             userRole: {
                 roleId: 2
             }

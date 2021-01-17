@@ -57,7 +57,7 @@ export const updateAppointmentCompletedById = async (appointment: Appointment, i
     }
 
     try {
-        let res = await tradeStarApi.put(`appointments/`, updatedAppt);
+        let res = await tradeStarApi.put(`/appointments`, updatedAppt);
         console.log(res.data);
         return res.data;
     }catch(e) {

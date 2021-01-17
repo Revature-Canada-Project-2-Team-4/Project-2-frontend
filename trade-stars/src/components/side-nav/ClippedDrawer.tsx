@@ -46,7 +46,6 @@ import { getCompanyByOwnerId } from "../../remote/trade-stars/ts-companies-funct
 import { BookAppointment } from "../book-appointment/BookAppointment";
 import { Service } from "../../models/Service";
 
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -142,7 +141,7 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" noWrap>
-            <HomeIcon/>      Your Dashboard
+            <HomeIcon color="secondary"/>      Your Dashboard
           </Typography>
         </Toolbar>
       </AppBar>
@@ -168,13 +167,13 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
                   >
                     <ListItemIcon>
                       {index === 0 ? (
-                        <InfoIcon />
+                        <InfoIcon color="secondary"/>
                       ) : index === 1 ? (
-                        <EventIcon />
+                        <ScheduleIcon color="primary"/>
                       ) : index === 2 ? (
-                        <BusinessCenterIcon/>
+                        <BusinessCenterIcon color="primary"/>
                       ) : (
-                        <ExitToAppIcon />
+                        <ExitToAppIcon color="secondary"/>
                       )}
                     </ListItemIcon>
                     <ListItemText primary={text} />

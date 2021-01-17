@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Company } from '../../models/Company';
-import { Review } from '../../models/Review';
-import { User } from '../../models/User';
+import { Review } from '../../../models/Review';
+import { User } from '../../../models/User';
 import {
     Card,
     CardContent,
@@ -9,14 +8,15 @@ import {
 } from "@material-ui/core";
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
-import { getReviewsByCompanyId } from '../../remote/trade-stars/ts-reviews-functions';
-import StarsIcon from '@material-ui/icons/Stars';
+import { getReviewsByCompanyId } from '../../../remote/trade-stars/ts-reviews-functions';
+import { Company } from '../../../models/Company';
+
 
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
-        minWidth: 500,
-        minHeight: 70,
+        minWidth: 1000,
+        minHeight: 300,
     },
 }),
 );
@@ -45,18 +45,17 @@ export const CustomerReadReviews: React.FunctionComponent<ICustomerReadReviewsPr
             changeReviews(revs)
         } 
         getReviews();
-    }, [])
+    }, [props.currentCompany.companyId])
 
 
     let reviewDisplay = (reviews) ? reviews.map((rev) => {
         return (
             <>
-            { <h1> Reviews given by customers for <br></br>
-                 {props.currentCompany.companyName}</h1> }
+            { <h1> Reviews </h1> }
             <Card className={classes.root}>
                 <CardContent>
-                <StarsIcon></StarsIcon> &nbsp; &nbsp; {rev.reviewedBy.firstName} {rev.reviewedBy.lastName} reviewed  : 
-                        " {rev.reviewText} "                     
+                
+                        <ol>{rev.reviewText}</ol>
                 </CardContent>
             </Card>
             

@@ -25,7 +25,7 @@ import {
 } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { ViewAppointments } from "../customer/view-app/ViewAppointments";
-
+import StarsIcon from '@material-ui/icons/Stars';
 import { CustomerInfo } from "../customer/CustomerInfo";
 import { TradesmanProfile } from "../tradesman/profile/TradesmanProfile";
 import { TradesmanDashboard } from "../tradesman/TradesmanDashboard";
@@ -55,6 +55,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     appBar: {
       zIndex: theme.zIndex.drawer + 1,
+      background: 'black'
     },
     drawer: {
       width: drawerWidth,
@@ -65,11 +66,29 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     drawerContainer: {
       overflow: "auto",
+      background: '#e0a150',
+      minHeight: '100%',
+      fontWeight: 'bold'
     },
     content: {
       flexGrow: 1,
       padding: theme.spacing(3),
     },
+    starIcon: {
+      marginRight: 5,
+      maxHeight: 30,
+      maxWidth: 50
+    },
+    infoIcon: {
+      color: '#33ab3d'
+    },
+    headerText: {
+      color: "#e0a150",
+      fontWeight: 'bold'
+    },
+    listText: {
+      fontWeight: 'bold'
+    }
   })
 );
 interface IClippedDrawerProps {
@@ -140,8 +159,9 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
-          <Typography variant="h6" noWrap>
-            <HomeIcon color="secondary"/>      Your Dashboard
+          <img src={process.env.PUBLIC_URL + '/TS.png'} alt="logo"  className={classes.starIcon}/>
+          <Typography className={classes.headerText} variant="h6" noWrap>
+             Trade Stars
           </Typography>
         </Toolbar>
       </AppBar>
@@ -167,7 +187,7 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
                   >
                     <ListItemIcon>
                       {index === 0 ? (
-                        <InfoIcon color="secondary"/>
+                        <InfoIcon className={classes.infoIcon}/>
                       ) : index === 1 ? (
                         <ScheduleIcon color="primary"/>
                       ) : index === 2 ? (

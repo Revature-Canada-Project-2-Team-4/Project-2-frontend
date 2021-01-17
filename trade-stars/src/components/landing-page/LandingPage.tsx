@@ -6,6 +6,8 @@ import { useHistory } from "react-router-dom";
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
+    background: '#e0a150',
+    marginTop: -30
   },
   bullet: {
     display: "inline-block",
@@ -18,6 +20,15 @@ const useStyles = makeStyles({
   pos: {
     marginBottom: 12,
   },
+  mainLogo: {
+    height: 200,
+    width:200,
+    borderRadius: 100
+  },
+  logoDiv: {
+    marginBottom: 130,
+    marginTop: 0
+  }
 });
 
 export const LandingPage: React.FunctionComponent<any> = (props) => {
@@ -37,11 +48,16 @@ export const LandingPage: React.FunctionComponent<any> = (props) => {
   };
 
   return (
+    <>
+    <div className={classes.logoDiv}>
+      <img src={process.env.PUBLIC_URL + '/logo2.png'} alt="logo"  className={classes.mainLogo}/>
+    </div>
     <div>
+      
       <Card className={classes.root }>
         <CardContent>
-          <Typography variant="h4" component="h1">
-            Please select an option
+          <Typography className={classes.pos} variant="h4" component="h1">
+            Welcome to Tradestars!
           </Typography>
           <Grid
             container
@@ -62,21 +78,22 @@ export const LandingPage: React.FunctionComponent<any> = (props) => {
                 color="primary"
                 onClick={navToCustomerRegister}
               >
-                Customer Register
+                Register As Customer
               </Button>
-
-
-              <Button
+            </Grid>
+            <Grid item>
+            <Button
                 variant="contained"
                 color="primary"
                 onClick={navToTradesmenRegister}
               >
-                Tradesmen Register
+                Register As Tradesmen
               </Button>
             </Grid>
           </Grid>
         </CardContent>
       </Card>
     </div>
+    </>
   );
 };

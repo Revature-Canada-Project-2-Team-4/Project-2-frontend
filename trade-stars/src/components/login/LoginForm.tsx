@@ -22,6 +22,7 @@ interface ILoginProps {
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
+    background: "#e0a150",
   },
   bullet: {
     display: "inline-block",
@@ -34,6 +35,15 @@ const useStyles = makeStyles({
   pos: {
     marginBottom: 12,
   },
+  mainLogo: {
+    height: 200,
+    width:200,
+    borderRadius: 100
+  },
+  logoDiv: {
+    marginBottom: 130,
+    marginTop: 0
+  }
 });
 
 export const LoginForm: React.FunctionComponent<ILoginProps> = (props) => {
@@ -62,13 +72,7 @@ export const LoginForm: React.FunctionComponent<ILoginProps> = (props) => {
       let user = await tsLogin(username, password);
       props.updateCurrentUser(user);
       console.log(user);
-      // TODO: redirect user to either employee dashboard or manager dashboard based on role
       if (user) {
-
-        // if (props.currentUser.userRole.roleId == 2) {
-        //   let company = await 
-        //   // make a fxn to get a single company
-        // }
         // navigate based on if user is returned
         history.push("/dashboard");
       }
@@ -79,11 +83,17 @@ export const LoginForm: React.FunctionComponent<ILoginProps> = (props) => {
 
   return (
     <>
-      <h1>Welcome to Trade Stars</h1>
+      <div className={classes.logoDiv}>
+        <img
+          src={process.env.PUBLIC_URL + "/logo2.png"}
+          alt="logo"
+          className={classes.mainLogo}
+        />
+      </div>
       <Card className={classes.root}>
         <CardContent>
           <Typography className={classes.pos} variant="h5" component="h2">
-            Please login to continue
+            Login
           </Typography>
           <form onSubmit={handleSubmitLogin} noValidate autoComplete="off">
             <Grid

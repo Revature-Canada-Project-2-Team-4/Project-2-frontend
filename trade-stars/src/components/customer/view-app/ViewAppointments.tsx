@@ -94,8 +94,8 @@ export const ViewAppointments: React.FunctionComponent<IViewAppointments> = (
                     <TableCell align="right">
                       {appt.customerId.username}
                     </TableCell>
-                    <TableCell align="right">{appt.appointmentStart}</TableCell>
-                    <TableCell align="right">{appt.appointmentEnd}</TableCell>
+                    <TableCell align="right">{new Date(appt.appointmentStart).toLocaleString()}</TableCell>
+                    <TableCell align="right">{new Date(appt.appointmentEnd).toLocaleString()}</TableCell>
                     <TableCell align="right">
                       {appt.forService.serviceTypes.serviceType}
                     </TableCell>

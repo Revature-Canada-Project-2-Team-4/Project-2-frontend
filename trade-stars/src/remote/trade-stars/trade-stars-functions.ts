@@ -28,7 +28,9 @@ export const createNewCustomer = async (firstName:string, lastName:string, usern
             username,
             password,
             email,
-            userRole: 1
+            userRole: {
+                roleId: 1
+            }
     }
 
     console.log(newCustomer)

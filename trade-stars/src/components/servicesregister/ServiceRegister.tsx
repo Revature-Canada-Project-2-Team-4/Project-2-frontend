@@ -1,3 +1,4 @@
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -28,6 +29,7 @@ import{Link, useHistory} from 'react-router-dom'
 import { createNewCompany } from '../../remote/trade-stars/company-register-functions';
 import { User } from '../../models/User';
 import { Company } from '../../models/Company';
+import { createNewService } from '../../remote/trade-stars/create-service';
 
 
 interface ITradesmenCompanyRegisterProps {
@@ -82,23 +84,25 @@ const useStyles = makeStyles((theme: Theme) => ({
 }),
 );
   
-  export const TradesmenCompanyRegister:React.FunctionComponent<ITradesmenCompanyRegisterProps> = (props) => {
+  export const ServiceRegister:React.FunctionComponent<ITradesmenCompanyRegisterProps> = (props) => {
 
     let history = useHistory();
     const classes = useStyles();
 
-    const [companyName, changeCompanyName] = useState("");
-    const [companyType, changeCompanyType] = useState("");
-    const [companyOwner, changeCompanyOwner] = useState(props.currentUser);
+    const [servicePrice, changeServicePrice] = useState("");
+    const [serviceType, changeServiceType] = useState("");
+    const [providedBy, changeCompanyOwner] = useState(props.currentCompany);
 
 
-    const handleCompanyNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        changeCompanyName(e.target.value);
+    const handleServicePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
+        changeServicePrice(e.target.value);
     };
 
-    const handlecompanyTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        changeCompanyType(e.target.value);
-    };
+    const handleServiceTypeChange = (
+        e: any
+      ) => {
+        changeServiceType(e.target.value);
+      };
 
 
 
@@ -111,23 +115,22 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 
     // Synthetic event is from react for creating a standard event between different browsers
-    const handleSubmitTradesmenDesc = async (e: React.SyntheticEvent) => {
+    const handleService = async (e: React.SyntheticEvent) => {
 
         // Prevent default html submit behaviour
         e.preventDefault();
-            
-        
         
         try {
            // Submit new company to database
-            let company = await createNewCompany(
-                companyName,
-                companyOwner,
-            );
+            let company = await createNewService(
+                servicePrice,
+                serviceType,
+                providedBy
+ );
 
             if (company) {
                 props.updateCurrentCompany(company)
-                history.push('/serviceregister');
+                history.push('/dashboard');
             }
 
             console.log("company");
@@ -149,35 +152,46 @@ const useStyles = makeStyles((theme: Theme) => ({
 
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Tradesmen Registration Continued
+                    Services By Company
                 </Typography>
-                <form onSubmit={handleSubmitTradesmenDesc} noValidate autoComplete="off">
+                <form onSubmit={handleService} noValidate autoComplete="off">
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <TextField
-                                value={companyName}
-                                onChange={handleCompanyNameChange}
+                                
+                                value={servicePrice}
+                                
+                                onChange={handleServicePrice}
                                 variant="outlined"
                                 required
                                 fullWidth
-                                id="companyName"
-                                label="Company Name"
-                                name="companyName"
-                                autoComplete="companyName" />
-                        </Grid>
-                        {/* <Grid item xs={12}>
-                            <TextField
-                                value={companyType}
-                                onChange={handlecompanyTypeChange}
-                                variant="outlined"
-                                required
-                                fullWidth
-                                name="companyType"
-                                label="companyType"
-                                type="companyType"
-                                id="companyType"
-                                autoComplete="companyType" />
-                        </Grid> */}
+                                id="servicePrice"
+                                label="Service Price"
+                                name="servicePrice"
+                                autoComplete="servicePrice" />
+                        </Grid> 
+                        <Grid item>
+            <FormControl variant="outlined">
+              <InputLabel htmlFor="outlined-type-native-simple">Type</InputLabel>
+              <Select
+                native
+                value={serviceType}
+                onChange={handleServiceTypeChange}
+                label="Service Type"
+                inputProps={{
+                  name: "type",
+                  id: "outlined-type-native-simple",
+                }}
+              >
+                <option aria-label="None" value="" />
+                <option value={1}>plumber</option>
+                <option value={2}>electrician</option>
+                <option value={3}>painter</option>
+                <option value={4}>contractor</option>
+              </Select>
+            </FormControl>
+          </Grid>
+                        
 
                     </Grid>
                     <Button
@@ -187,7 +201,7 @@ const useStyles = makeStyles((theme: Theme) => ({
                         color="primary"
                         onClick={clickHandler}
                     >
-                        Register
+                        Submit
                     </Button>
                     <Grid container justify="flex-end">
                         <Grid item>

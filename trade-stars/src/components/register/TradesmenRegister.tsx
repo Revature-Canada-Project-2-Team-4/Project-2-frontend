@@ -57,6 +57,8 @@ export const  TradesmenRegister: React.FunctionComponent<ITradesmanRegisterProps
   const [lastName, changeLastName] = useState("");
   const [username, changeUsername] = useState("");
   const [password, changePassword] = useState("");
+  const [email, changeEmail] = useState("");
+
 
   const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     changeFirstName(e.target.value);
@@ -70,6 +72,10 @@ export const  TradesmenRegister: React.FunctionComponent<ITradesmanRegisterProps
   };
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     changePassword(e.target.value);
+  };
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    changeEmail(e.target.value);
+
   };
 
 
@@ -90,7 +96,8 @@ export const  TradesmenRegister: React.FunctionComponent<ITradesmanRegisterProps
         firstName,
         lastName,
         username,
-        password
+        password,
+        email
        );
         props.updateCurrentUser(tradesmen);
         console.log(tradesmen);
@@ -169,6 +176,20 @@ export const  TradesmenRegister: React.FunctionComponent<ITradesmanRegisterProps
                 type="password"
                 id="password"
                 autoComplete="current-password"
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                value = {email}
+                onChange={handleEmailChange}
+                variant="outlined"
+                required
+                fullWidth
+                id="email"
+                label="Email"
+                name="email"
+                autoComplete="email"
               />
             </Grid>
             

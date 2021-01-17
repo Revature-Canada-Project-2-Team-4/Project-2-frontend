@@ -2,18 +2,14 @@ import {tradeStarApi} from "."
 import { Appointment } from "../../models/Appointment";
 
 
-export const UpdateAppointments = async (appointmentId: any,appointmentConfirmed: any) =>{
+export const UpdateAppointments = async (appointment: Appointment ,isConfirmed: boolean) =>{
 
-    let updatedAppointment = {
-
-        appointmentId,
-        appointmentConfirmed
-        
+    let updatedAppt = {
+        ...appointment,
+        appointmentConfirmed: isConfirmed
     }
-
-    console.log(updatedAppointment)
     try {
-        let res = await tradeStarApi.put('/appointment', updatedAppointment);
+        let res = await tradeStarApi.put(`/appointments`, updatedAppt);
         console.log(res.data);
         return res.data;
     }catch(e) {

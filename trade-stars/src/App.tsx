@@ -10,6 +10,8 @@ import { User } from './models/User';
 import { LandingPage } from './components/landing-page/LandingPage';
 import { CreateReview } from './components/reviews/CreateReview';
 import { Company } from './models/Company';
+import { Register } from './customer-comp/CustomerRegister';
+import { ServiceRegister } from './components/servicesregister/ServiceRegister';
 
 
 
@@ -38,8 +40,15 @@ function App() {
       <Route exact path="/login">
         <LoginForm updateCurrentUser={changeUser} currentUser={user}/>
       </Route>
-      <Route path= "/register" exact component = {TradesmenRegister}>
+      <Route path= "/tradesmenregister" exact component = {TradesmenRegister}>
         <TradesmenRegister updateCurrentUser={changeUser} currentUser={user}/>
+      </Route>
+      <Route path= "/serviceregister" exact component = {ServiceRegister} >
+        <ServiceRegister updateCurrentUser={changeUser} currentUser={user} updateCurrentCompany = {changeCompany} currentCompany = {company} />
+      </Route>
+       
+      <Route path= "/customerregister" exact component = {Register}>
+        <Register updateCurrentUser={changeUser} currentUser={user}/>
       </Route>
       <Route exact path="/">
         <LandingPage />

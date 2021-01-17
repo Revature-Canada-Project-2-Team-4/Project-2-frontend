@@ -225,6 +225,7 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
             <ViewAppointments
               updateCurrentUser={props.updateCurrentUser}
               currentUser={props.currentUser}
+              currentCompany={company}
             />
           </Route>
           <Route path={`${path}/TradesmanProfile`}>

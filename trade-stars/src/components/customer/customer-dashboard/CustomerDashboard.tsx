@@ -32,37 +32,37 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       maxWidth: 950,
     },
-  }),
+  })
 );
 
-
 interface ICustomerDashboard {
-    updateCurrentUser: (u:User) => void
-    currentUser: User
-    updateCurrentCompany: (c: Company) => void;
-    currentCompany: Company;
-  }
-  
-export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (props) => {
+  updateCurrentUser: (u: User) => void;
+  currentUser: User;
+  updateCurrentCompany: (c: Company) => void;
+  currentCompany: Company;
+}
+
+export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (
+  props
+) => {
   const classes = useStyles();
   const [viewServices, changeViewServices] = useState<Service[]>();
-  const [serviceTypes, changeServiceTypes] = useState<ServiceTypes[]>();
-  const [selectedType, changeSelectedType] = useState<any>("");
-  
+  const [serviceTypes, changeServiceTypes] = useState<ServiceTypes[]>([]);
+
   useEffect(() => {
     const getServiceRows = async () => {
-       let serv = await getAllTradeServices();
-      console.log(serv);
+      let serv = await getAllTradeServices();
       changeViewServices(serv);
     };
     const getServiceTypes = async () => {
       let servTypes = await getAllServicesTypes();
-     console.log(servTypes);
-     changeServiceTypes(servTypes);
-   };
-   getServiceTypes();
+      changeServiceTypes(servTypes);
+    };
+
+    getServiceTypes();
     getServiceRows();
   }, []);
+
   let history = useHistory();
   function AddReview(company: Company) {
     props.updateCurrentCompany(company);
@@ -72,43 +72,13 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (p
     props.updateCurrentCompany(company);
     history.push(`/dashboard/TradesmanReviews`);
   }
-  function selectType(event: React.ChangeEvent<{ value: unknown }>) {
-    changeSelectedType(event.target.value as string);
-    let filterServices = viewServices.filter(item => item.serviceTypes.serviceType === selectedType
-      )
-    changeViewServices(filterServices);
-  }
-    return (
-      <>
+
+  return (
+    <>
       <h1>Services</h1>
-      <Card className={classes.root}>
-      <label>
-         <BusinessCenterIcon color="primary"/>  Pick the service you want : &nbsp; &nbsp; </label>
-          <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel id="demo-simple-select-outlined-label">Service</InputLabel>
-       
-        {(serviceTypes) ? 
-        <Select
-          labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
-          label="Service Type" 
-          value={selectedType}
-          onChange={selectType}>
-            <MenuItem value=""><em>All</em></MenuItem>
-             {serviceTypes.map((st) => {
-              <MenuItem key= {st.serviceId} value={st.serviceType}>{st.serviceType}</MenuItem>
-            }) }
-            
-        </Select>
-          : <MenuItem value=""><em>Loading...</em></MenuItem>
-        }
-        
-      </FormControl>
-      </Card>
         
         <div>
         {(viewServices) ? (viewServices.map((serv) => (
-          <div><br></br>
       <Card className={classes.root} key={serv.serviceId} >
       
       <CardActionArea >
@@ -194,14 +164,13 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (p
               </Button>
               </CardActions>
               
-              </Card> </div>
+              </Card>
               ))) : (
           <Card className={classes.root} key={1}> 
             <CardActionArea>
-              
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
-                  Loading... 
+                  Loading...
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
                   Loading..
@@ -217,8 +186,8 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (p
               </Button>
             </CardActions>
           </Card>
-          )}
-   </div>
-      </>
-    );
-  };
+        )}
+      </div>
+    </>
+  );
+};

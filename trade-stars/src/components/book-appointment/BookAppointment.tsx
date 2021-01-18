@@ -75,7 +75,7 @@ export const BookAppointment: React.FunctionComponent<IBookAppointmentProps> = (
             history.push('/dashboard')
 
 
-        } catch (e) {
+        } catch(e) {
           console.log(e);
         }
 

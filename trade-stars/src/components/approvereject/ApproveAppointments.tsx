@@ -119,7 +119,7 @@ export const ApproveAppointments: React.FunctionComponent<IApproveAppointments> 
        
         <TableBody>
         {appointments ? (
-            appointments.map((row) => (
+            appointments.filter(appt => appt.appointmentCompleted === false).map((row) => (
               <TableRow key={row.appointmentId}>
                 <TableCell component="th" scope="row" align="center">
                   {row.appointmentId}

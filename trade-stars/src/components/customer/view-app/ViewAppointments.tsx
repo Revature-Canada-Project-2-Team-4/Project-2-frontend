@@ -62,7 +62,7 @@ export const ViewAppointments: React.FunctionComponent<IViewAppointments> = (
             <TableHead>
               <TableRow >
                 <TableCell  className={classes.tableRow} align="center">Appointment ID</TableCell>
-                {/* <TableCell align="left">Customer Name</TableCell> */}
+                <TableCell className={classes.tableRow} align="center">Company</TableCell>
                 <TableCell className={classes.tableRow} align="center">From</TableCell>
                 <TableCell  className={classes.tableRow} align="center">To</TableCell>
                 <TableCell  className={classes.tableRow} align="center">Service</TableCell>
@@ -70,14 +70,14 @@ export const ViewAppointments: React.FunctionComponent<IViewAppointments> = (
             </TableHead>
             <TableBody>
               {upcomingAppts ? (
-                upcomingAppts.map((appt) => (
+                upcomingAppts.filter(appt => (appt.appointmentConfirmed === true && appt.appointmentCompleted === false)).map((appt) => (
                   <TableRow key={appt.appointmentId}>
                     <TableCell component="th" scope="row" align="center">
                       {appt.appointmentId}
                     </TableCell>
-                    {/* <TableCell align="right">
-                      {appt.customerId.username}
-                    </TableCell> */}
+                    <TableCell align="center">
+                      {appt.forService.providedBy.companyName}
+                    </TableCell>
                     <TableCell align="center">{new Date(appt.appointmentStart).toLocaleString()}</TableCell>
                     <TableCell align="center">{new Date(appt.appointmentEnd).toLocaleString()}</TableCell>
                     <TableCell align="center">

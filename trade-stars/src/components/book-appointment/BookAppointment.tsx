@@ -112,7 +112,7 @@ export const BookAppointment: React.FunctionComponent<IBookAppointmentProps> = (
             variant="contained"
             color="primary"
           >
-            Register
+            Book
         </Button>
           <br></br><br></br>
       </form>

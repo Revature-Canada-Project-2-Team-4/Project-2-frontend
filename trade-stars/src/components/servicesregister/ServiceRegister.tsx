@@ -169,10 +169,10 @@ const useStyles = makeStyles((theme: Theme) => ({
                 }}
               >
                 <option aria-label="None" value="" />
-                <option value={1}>plumber</option>
-                <option value={2}>electrician</option>
-                <option value={3}>painter</option>
-                <option value={4}>contractor</option>
+                <option value={1}>Plumber</option>
+                <option value={2}>Electrician</option>
+                <option value={3}>Painter</option>
+                <option value={4}>Contractor</option>
               </Select><br></br>
             </FormControl>
                 <form onSubmit={handleService} noValidate autoComplete="off">

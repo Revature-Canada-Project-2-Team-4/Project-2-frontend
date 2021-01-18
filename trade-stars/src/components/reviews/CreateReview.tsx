@@ -6,6 +6,7 @@ import {  Card } from '@material-ui/core';
 import { User } from '../../models/User';
 import { Company } from '../../models/Company';
 import { createNewReview } from '../../remote/trade-stars/create-review-functions';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -15,6 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
         width: '70ch',
         background: "#fff2be", 
       },
+      background: "#fff2be",
     },
     formControl: {
         margin: theme.spacing(1),
@@ -44,6 +46,7 @@ interface ICreateReview {
 export const CreateReview: React.FunctionComponent<ICreateReview> = (props) =>  {
 
   const classes = useStyles();
+  let history = useHistory();
   const [review, changeReview] = useState("Please enter your review over here!!");
   const [reviewedBy] = useState(props.currentUser);
   const [reviewedFor] = useState(props.currentCompany);
@@ -63,10 +66,9 @@ export const CreateReview: React.FunctionComponent<ICreateReview> = (props) =>  
         reviewedBy,
         reviewedFor,
        );
-
-
        console.log(CreateReview);
-       alert("Review has been created")
+       alert("Review has been created");
+       history.push('/dashboard/CustomerDashboard');
    } catch (e) {
        console.log(e.message);
    }

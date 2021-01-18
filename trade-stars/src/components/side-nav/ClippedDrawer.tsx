@@ -118,7 +118,12 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
         
       }
       getCompany();
+      history.push('/dashboard/TradesmanProfile')
     }
+    else {
+      history.push('/dashboard/CustomerInfo')
+    }
+    
   },[])
 
   const classes = useStyles();

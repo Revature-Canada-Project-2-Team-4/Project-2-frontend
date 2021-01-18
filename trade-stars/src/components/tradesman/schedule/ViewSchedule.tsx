@@ -62,11 +62,23 @@ export const ViewSchedule: React.FunctionComponent<IViewSchedule> = (props) => {
   const markAsCompleted = async (appointment: Appointment) => {
     console.log("need to make call to mark completed")
     let updatedAppt = await updateAppointmentCompletedById(appointment, true);
+    const getScheduleRows = async () => {
+      let appts = await getAllAppointmentsByCompanyId(props.currentCompany.companyId);
+      console.log(appts);
+      changeScheduleAppts(appts);
+    };
+    getScheduleRows();
   }
 
   const markAsCancelled = async (appointment: Appointment) => {
     console.log("need to make call to mark cancelled")
     let updatedAppt = await updateAppointmentCompletedById(appointment, false);
+    const getScheduleRows = async () => {
+      let appts = await getAllAppointmentsByCompanyId(props.currentCompany.companyId);
+      console.log(appts);
+      changeScheduleAppts(appts);
+    };
+    getScheduleRows();
   }
 
   return (
@@ -87,7 +99,7 @@ export const ViewSchedule: React.FunctionComponent<IViewSchedule> = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {(scheduledAppts) ? (scheduledAppts.map((appt) => (
+              {(scheduledAppts) ? (scheduledAppts.filter(appt => appt.appointmentConfirmed === true).map((appt) => (
                 <TableRow key={appt.appointmentId}>
                   <TableCell align="center" component="th" scope="row">
                     {appt.appointmentId}

@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import  Button  from '@material-ui/core/Button';
-import FormControl from '@material-ui/core/FormControl';
-import { InputLabel, Select, MenuItem, Card } from '@material-ui/core';
+import {  Card } from '@material-ui/core';
 import { User } from '../../models/User';
 import { Company } from '../../models/Company';
 import { createNewReview } from '../../remote/trade-stars/create-review-functions';
@@ -14,6 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
       '& .MuiTextField-root': {
         margin: theme.spacing(1),
         width: '70ch',
+        background: "#fff2be", 
       },
     },
     formControl: {
@@ -23,7 +23,13 @@ const useStyles = makeStyles((theme: Theme) =>
         display: 'flex',
         //flexDirection: 'column',
         alignItems: 'left',
-
+        background: "#fff2be", 
+      },
+      col: {
+        color: "#fff2be", 
+      },
+      bg: {
+        backgroud: "#fff2be", 
       },
   }),
 );
@@ -68,11 +74,13 @@ export const CreateReview: React.FunctionComponent<ICreateReview> = (props) =>  
   };
 
   return (
-    
-    <form onSubmit = {handleSubmitCreateReview} className={classes.root} noValidate autoComplete="off">    
-    <h1> Enter Review for {props.currentCompany.companyName}</h1>
-    <Card className={classes.root}>
-      <div>
+    <>
+        
+    <h1 className={classes.col}> Enter Review for {props.currentCompany.companyName}</h1>
+    <form onSubmit = {handleSubmitCreateReview} className={classes.root} noValidate autoComplete="off">
+    <div className={classes.bg}>
+      <Card className={classes.root}>
+      
         <TextField
           value = {review}  
           onChange = {handleChange}
@@ -82,7 +90,7 @@ export const CreateReview: React.FunctionComponent<ICreateReview> = (props) =>  
           rows={10}
           variant="outlined"
         />
-      </div>
+      <br></br>
         <Button
             type="submit"
             
@@ -92,7 +100,10 @@ export const CreateReview: React.FunctionComponent<ICreateReview> = (props) =>  
         >       
         Submit
         </Button>
+        <br></br><br></br>
         </Card>
+        </div>
     </form>
+    </>
   );
 }

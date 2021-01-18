@@ -1,20 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-// import InboxIcon from '@material-ui/icons/MoveToInbox';
-// import MailIcon from '@material-ui/icons/Mail';
-// import InfoIcon from '@material-ui/icons/Info';
-// import EventIcon from '@material-ui/icons/Event';
-import { BrowserRouter as Router,Link, Route, Switch, useHistory } from "react-router-dom";
 import { User } from '../../models/User';
 import {
   TableContainer,
@@ -26,6 +10,7 @@ import {
   TableBody,
   ButtonGroup,
   Button,
+  makeStyles,
 } from "@material-ui/core";
 import { Appointment } from '../../models/Appointment';
 import { getAllAppointmentsByCompanyId } from '../../remote/trade-stars/ts-appointments-functions';
@@ -41,9 +26,32 @@ interface IApproveAppointments {
   
 }
 
+const useStyles = makeStyles({
+  root: {
+      minWidth: 250,
+      background: "#fff2be",
+    },
+    text: {
+      fontWeight: 'bold',
+    },
+    col: {
+      color: "#fff2be",
+    },
+    button1: {
+      color: "#FF0000",
+      borderColor: "#FF0000",
+      hoverOver: "#FF0000",
+    },
+    button2: {
+      color: "#228B22",
+      
+      borderColor: "#228B22",
+    },
+});
+
 
 export const ApproveAppointments: React.FunctionComponent<IApproveAppointments> = (props) => {
-
+  const classes = useStyles();
 
   const [appointments, viewAppointments] = useState<Appointment[]>();
 
@@ -90,21 +98,22 @@ export const ApproveAppointments: React.FunctionComponent<IApproveAppointments> 
     return (
       
       <div>
-        <h3>View Appointments</h3>
-        <TableContainer component={Paper}>
+        <h1 className={classes.col}>View Appointments</h1>
+        <TableContainer component={Paper} className={classes.root}>
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
-          <TableCell>Id</TableCell>
+          <TableCell className={classes.text} align="center" >Id</TableCell>
             {/* <TableCell align="center">AppointmentId</TableCell> */}
-            <TableCell align="center">Customer Name</TableCell>
-            <TableCell align="center">Company Name</TableCell>
-            <TableCell align="center">Start Time</TableCell>
-            <TableCell align="center">End Time</TableCell>
-            <TableCell align="center">Service</TableCell>
+            <TableCell className={classes.text} align="center">Customer Name</TableCell>
+            <TableCell className={classes.text} align="center">Company Name</TableCell>
+            <TableCell  className={classes.text} align="center">Start Time</TableCell>
+            <TableCell  className={classes.text} align="center">End Time</TableCell>
+            <TableCell  className={classes.text} align="center">Service</TableCell>
 
-            <TableCell align="center">Confirmation</TableCell>
-            <TableCell align="center">Completed</TableCell>
+            <TableCell  className={classes.text} align="center">Confirmation</TableCell>
+            
+            <TableCell  className={classes.text} align="center">Reject/Approve</TableCell>
           </TableRow>
         </TableHead>
        
@@ -130,15 +139,14 @@ export const ApproveAppointments: React.FunctionComponent<IApproveAppointments> 
                     : "rejected"}
 
                 </TableCell>
-         <TableCell align="center">{row.appointmentCompleted === false ? "not completed": "completed"}</TableCell>
 
                 <TableCell align="center">
                   <ButtonGroup
                     color="primary"
                     aria-label="outlined primary button group"
                   >
-                    <Button onClick={() => {rejectAppointments(row)}}>Reject</Button>
-                    <Button onClick={() => {approveAppointments(row)}}>Approve</Button>
+                    <Button className={classes.button1} onClick={() => {rejectAppointments(row)}}>Reject</Button>
+                    <Button className={classes.button2} onClick={() => {approveAppointments(row)}}>Approve</Button>
                   </ButtonGroup>
                 </TableCell>
               </TableRow>

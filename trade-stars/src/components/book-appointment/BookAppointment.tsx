@@ -1,33 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import { Company } from '../../models/Company';
-import { Review } from '../../models/Review';
 import { User } from '../../models/User';
-import {
-    Card,
-    CardContent,
-    CardHeader,
-} from "@material-ui/core";
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
-import { getReviewsByCompanyId } from '../../remote/trade-stars/ts-reviews-functions';
 import { Service } from '../../models/Service';
-import { getAllTradeServices } from '../../remote/trade-stars/ts-services-functions';
-import Container from '@material-ui/core/Container';
-import CssBaseline from '@material-ui/core/CssBaseline/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Avatar from '@material-ui/core/Avatar';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { createAppointment } from '../../remote/trade-stars/ts-appointments-functions';
 import { useHistory } from 'react-router-dom';
-//import { createNewAppointment } from '../../remote/trade-stars/ts-appointments-functions';
-
-
+import { Card , Grid} from '@material-ui/core';
 
 interface IBookAppointmentProps {
     updateCurrentCompany: (c: Company) => void;
@@ -45,50 +26,20 @@ const linkStyle = {
     color: 'white',
     fontSize: 16,
 
-
-
-
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap',
+    root: {
+        minWidth: 250,
+        background: "#fff2be",
       },
       textField: {
-        marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),
         width: 200,
+        height: 150,
       },
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
-    },
-    form: {
-        width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing(3),
-    },
-    submit: {
-        margin: theme.spacing(3, 0, 2),
-    },
-    formControl: {
-        margin: theme.spacing(1),
-        minWidth: 380,
-        width: '100%',
-        display: 'flex',
-        //flexDirection: 'column',
-        alignItems: 'left',
-
-    },
-    selectEmpty: {
-        marginTop: theme.spacing(2),
-    },
+      head: {
+        color: "#fff2be",
+      },
 }),
 );
 
@@ -110,19 +61,12 @@ export const BookAppointment: React.FunctionComponent<IBookAppointmentProps> = (
     const handleSubmitAppointment = async (e: React.SyntheticEvent) => {
         
         e.preventDefault();
-
-
-
-
        // const appointmentForServices = props.currentService.serviceTypes
-
-
         var DOpickedEndDate = new Date(pickedDate);
         DOpickedEndDate.setHours(DOpickedEndDate.getHours(),DOpickedEndDate.getMinutes()+60,0,0);
         
         var DOpickedDate = new Date(pickedDate)
 
-   
 
         try {
             //Submit appointment to db
@@ -134,14 +78,20 @@ export const BookAppointment: React.FunctionComponent<IBookAppointmentProps> = (
         } catch {}
 
     };
-
-
-
-    
-
     return (
-        <form onSubmit = {handleSubmitAppointment} className={classes.container} noValidate>
-            <h1>Book an Appointment</h1>
+        <>
+        <h1 className={classes.head}>Book an Appointment for <br></br>
+        {props.currentCompany.companyName}</h1>
+        <Card className={classes.root}>
+        <Grid
+              container
+              direction="column"
+              justify="flex-start"
+              alignItems="center"
+              
+            >
+        <form onSubmit = {handleSubmitAppointment}  noValidate>
+       <br></br>
         <TextField
           id="datetime-local"
           label="Next appointment"
@@ -149,24 +99,24 @@ export const BookAppointment: React.FunctionComponent<IBookAppointmentProps> = (
           value = {pickedDate}
           onChange = {handlePickedDateChange}
           defaultValue="2017-05-24T10:30"
-          className={classes.textField}
+          
           InputLabelProps={{
             shrink: true,
           }}
-        />
+        /> 
+        <br></br><br></br>
         <Button
             type="submit"
-            fullWidth
             variant="contained"
             color="primary"
-           // onClick = {clickHandler}
           >
             Register
         </Button>
-
+          <br></br><br></br>
       </form>
-       
-
+      </Grid>
+      </Card>
+</>
 
     )
 }

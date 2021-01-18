@@ -5,7 +5,7 @@ import { User } from '../../models/User';
 import {
     Card,
     CardContent,
-    CardHeader,
+    Typography,
 } from "@material-ui/core";
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
@@ -17,9 +17,16 @@ const useStyles = makeStyles((theme: Theme) => ({
     root: {
         minWidth: 500,
         minHeight: 70,
+        background: "#fff2be",  
     },
-}),
-);
+    head: {
+        color: "#fff2be",  
+    },
+    pos: {
+        fontSize: 22,  
+    },
+}
+));
 
 
 interface ICustomerReadReviewsProps {
@@ -47,28 +54,57 @@ export const CustomerReadReviews: React.FunctionComponent<ICustomerReadReviewsPr
         getReviews();
     }, [])
 
-
-    let reviewDisplay = (reviews) ? reviews.map((rev) => {
-        return (
-            <>
-            { <h1> Reviews given by customers for <br></br>
-                 {props.currentCompany.companyName}</h1> }
-            <Card className={classes.root}>
-                <CardContent>
-                <StarsIcon></StarsIcon> &nbsp; &nbsp; {rev.reviewedBy.firstName} {rev.reviewedBy.lastName} reviewed  : 
-                        " {rev.reviewText} "                     
-                </CardContent>
-            </Card>
-            
-            </>
-        )
-
-    })
-    : []
-
     return (
         <>
-        { reviewDisplay }
+        
+         <h1 className={classes.head}> Reviews given by customers for <br></br>
+             {props.currentCompany.companyName}</h1> 
+             {reviews ? reviews.map((rev) => (
+                 <div>
+             <Card className={classes.root}>
+            <CardContent>
+            <Typography align="left" className={classes.pos} color="textPrimary">
+            <StarsIcon></StarsIcon> &nbsp; &nbsp; {rev.reviewedBy.firstName} {rev.reviewedBy.lastName} reviewed  : 
+        </Typography><hr></hr>
+        <Typography align="left" className={classes.pos} color="textSecondary">
+        " {rev.reviewText} " 
+        </Typography>             
+            </CardContent>
+        </Card>
+        <br></br>
+        </div>
+        
+    )):[]}
         </>
-    );
-}
+    )
+
+    //let reviewDisplay = (reviews) ? reviews.map((rev) => {
+    //     return (
+    //         <>
+    //          <h1 className={classes.head}> Reviews given by customers for <br></br>
+    //              {props.currentCompany.companyName}</h1>
+    //         <Card className={classes.root}>
+    //             <CardContent>
+                  
+    //             <Typography align="left"  className={classes.pos} color="textPrimary">
+    //             <StarsIcon></StarsIcon> &nbsp; &nbsp; {rev.reviewedBy.firstName} {rev.reviewedBy.lastName} reviewed  :
+    //              </Typography> <hr></hr>
+    //             <Typography align="left"  className={classes.pos} color="textSecondary">
+    //             " {rev.reviewText} " 
+    //              </Typography>     
+
+    //             </CardContent>
+    //         </Card>
+    //         <br></br>
+    //         </>
+    //     )
+
+    // })
+    // : []
+
+    // return (
+    //     <>
+    //     { reviewDisplay }
+    //     </>
+//     );
+ }

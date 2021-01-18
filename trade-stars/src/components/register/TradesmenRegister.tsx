@@ -5,7 +5,6 @@ import TextField from '@material-ui/core/TextField';
 import {
   Card,
   CardContent,
-  CardHeader,
 } from "@material-ui/core";
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -29,6 +28,8 @@ interface ITradesmanRegisterProps {
 const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 275,
+    maxHeight: 575,
+    background: "#e0a150",
   },
   paper: {
     marginTop: theme.spacing(8),
@@ -47,6 +48,9 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  hd:{
+    fontWeight: 'bold'
+  }
 }));
 
 export const  TradesmenRegister: React.FunctionComponent<ITradesmanRegisterProps> = (props) => {
@@ -119,9 +123,9 @@ export const  TradesmenRegister: React.FunctionComponent<ITradesmanRegisterProps
         <Avatar className={classes.avatar}>
     
         </Avatar>
-        <Typography component="h1" variant="h5">
+        <Typography className={classes.hd} component="h1" variant="h5">
           Tradesmen Registration
-        </Typography>
+        </Typography><br></br>
         <form onSubmit={handleSubmitTradesmen} noValidate autoComplete="off">
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
@@ -194,6 +198,7 @@ export const  TradesmenRegister: React.FunctionComponent<ITradesmanRegisterProps
             </Grid>
             
           </Grid>
+          <br></br>
           <Button
             type="submit"
             fullWidth

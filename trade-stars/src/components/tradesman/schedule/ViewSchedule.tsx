@@ -82,6 +82,7 @@ export const ViewSchedule: React.FunctionComponent<IViewSchedule> = (props) => {
                 <TableCell className={classes.tb} align="center">From</TableCell>
                 <TableCell  className={classes.tb} align="center">To</TableCell>
                 <TableCell className={classes.tb} align="center">Service Type</TableCell>
+                <TableCell className={classes.tb} align="center">Completed</TableCell>
                 <TableCell  className={classes.tb} align="center">Cancel/Mark As Completed</TableCell>
               </TableRow>
             </TableHead>
@@ -96,6 +97,11 @@ export const ViewSchedule: React.FunctionComponent<IViewSchedule> = (props) => {
                   <TableCell align="center">{new Date(appt.appointmentEnd).toLocaleString()}</TableCell>
                   <TableCell align="center">{appt.forService.serviceTypes.serviceType}</TableCell>
                   <TableCell align="center">
+                  {appt.appointmentCompleted === true
+                    ? "Completed"
+                    : "not Completed"}
+
+                </TableCell>                  <TableCell align="center">
                     <ButtonGroup
                       color="primary"
                       aria-label="outlined primary button group"

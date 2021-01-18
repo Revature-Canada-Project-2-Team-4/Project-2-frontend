@@ -1,29 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import AppBar from "@material-ui/core/AppBar";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
-import InfoIcon from "@material-ui/icons/Info";
-import EventIcon from "@material-ui/icons/Event";
-import {
-  BrowserRouter as Router,
-  Link,
-  Route,
-  Switch,
-  useHistory,
-} from "react-router-dom";
-import { ClippedDrawer } from "../../side-nav/ClippedDrawer";
+import {makeStyles } from "@material-ui/core/styles";
 import { User } from "../../../models/User";
-import classes from "*.module.css";
 import {
   Paper,
   Table,
@@ -31,8 +8,6 @@ import {
   TableRow,
   TableCell,
   TableBody,
-  ButtonGroup,
-  Button,
   TableContainer,
 } from "@material-ui/core";
 import { Company } from "../../../models/Company";
@@ -48,6 +23,15 @@ interface IViewAppointments {
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
+    background: "#fff2be",
+  },
+  head: {    
+    
+    color: "#fff2be",
+  },
+  tableRow: {
+    fontWeight: 'bold',
+    fontSize: 20
   },
 });
 
@@ -71,32 +55,32 @@ export const ViewAppointments: React.FunctionComponent<IViewAppointments> = (
 
   return (
     <>
-      <h2>Upcoming Appointments</h2>
+      <h2 className={classes.head}>Upcoming Appointments for {props.currentUser.firstName} {props.currentUser.lastName}</h2>
       <div>
         <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
-              <TableRow>
-                <TableCell align="center">Appointment ID</TableCell>
-                <TableCell align="center">Customer Id</TableCell>
-                <TableCell align="center">From</TableCell>
-                <TableCell align="center">To</TableCell>
-                <TableCell align="center">Service</TableCell>
+              <TableRow >
+                <TableCell  className={classes.tableRow} align="center">Appointment ID</TableCell>
+                {/* <TableCell align="left">Customer Name</TableCell> */}
+                <TableCell className={classes.tableRow} align="center">From</TableCell>
+                <TableCell  className={classes.tableRow} align="center">To</TableCell>
+                <TableCell  className={classes.tableRow} align="center">Service</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {upcomingAppts ? (
                 upcomingAppts.map((appt) => (
                   <TableRow key={appt.appointmentId}>
-                    <TableCell component="th" scope="row">
+                    <TableCell component="th" scope="row" align="center">
                       {appt.appointmentId}
                     </TableCell>
-                    <TableCell align="right">
+                    {/* <TableCell align="right">
                       {appt.customerId.username}
-                    </TableCell>
-                    <TableCell align="right">{new Date(appt.appointmentStart).toLocaleString()}</TableCell>
-                    <TableCell align="right">{new Date(appt.appointmentEnd).toLocaleString()}</TableCell>
-                    <TableCell align="right">
+                    </TableCell> */}
+                    <TableCell align="center">{new Date(appt.appointmentStart).toLocaleString()}</TableCell>
+                    <TableCell align="center">{new Date(appt.appointmentEnd).toLocaleString()}</TableCell>
+                    <TableCell align="center">
                       {appt.forService.serviceTypes.serviceType}
                     </TableCell>
                   </TableRow>

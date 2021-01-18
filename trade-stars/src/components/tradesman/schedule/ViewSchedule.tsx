@@ -25,6 +25,23 @@ interface IViewSchedule {
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
+    background: "#fff2be",
+  },
+  head: {
+    color: "#fff2be",
+  },
+  tb: {
+    fontWeight:'bold',
+  },
+  button1: {
+    color: "#FF0000",
+    borderColor: "#FF0000",
+    hoverOver: "#FF0000",
+  },
+  button2: {
+    color: "#228B22",
+    
+    borderColor: "#228B22",
   },
 });
 
@@ -54,43 +71,43 @@ export const ViewSchedule: React.FunctionComponent<IViewSchedule> = (props) => {
 
   return (
     <>
-      <h2>Schedule</h2>
+      <h1 className={classes.head}>Your Schedule</h1>
       <div>
         <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell align="center">Appointment ID</TableCell>
-                <TableCell align="center">Customer Id</TableCell>
-                <TableCell align="center">From</TableCell>
-                <TableCell align="center">To</TableCell>
-                <TableCell align="center">Service</TableCell>
-                <TableCell align="center">Mark As Completed</TableCell>
+                <TableCell className={classes.tb} align="center">Appointment ID</TableCell>
+                <TableCell className={classes.tb} align="center">Customer Name</TableCell>
+                <TableCell className={classes.tb} align="center">From</TableCell>
+                <TableCell  className={classes.tb} align="center">To</TableCell>
+                <TableCell className={classes.tb} align="center">Service Type</TableCell>
+                <TableCell  className={classes.tb} align="center">Cancel/Mark As Completed</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {(scheduledAppts) ? (scheduledAppts.map((appt) => (
                 <TableRow key={appt.appointmentId}>
-                  <TableCell component="th" scope="row">
+                  <TableCell align="center" component="th" scope="row">
                     {appt.appointmentId}
                   </TableCell>
-                  <TableCell align="right">{appt.customerId.username}</TableCell>
-                  <TableCell align="right">{appt.appointmentStart}</TableCell>
-                  <TableCell align="right">{appt.appointmentEnd}</TableCell>
-                  <TableCell align="right">{appt.forService.serviceTypes.serviceType}</TableCell>
-                  <TableCell align="right">
+                  <TableCell align="center">{appt.customerId.username}</TableCell>
+                  <TableCell align="center">{new Date(appt.appointmentStart).toLocaleString()}</TableCell>
+                  <TableCell align="center">{new Date(appt.appointmentEnd).toLocaleString()}</TableCell>
+                  <TableCell align="center">{appt.forService.serviceTypes.serviceType}</TableCell>
+                  <TableCell align="center">
                     <ButtonGroup
                       color="primary"
                       aria-label="outlined primary button group"
                     >
-                      <Button
+                      <Button className={classes.button1}
                         onClick={() => {
                           markAsCancelled(appt);
                         }}
                       >
                         Cancel
                       </Button>
-                      <Button
+                      <Button className={classes.button2}
                         onClick={() => {
                           markAsCompleted(appt);
                         }}

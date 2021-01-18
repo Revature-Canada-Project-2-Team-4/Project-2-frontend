@@ -9,22 +9,14 @@ import Typography from '@material-ui/core/Typography';
 import {
     Card,
     CardContent,
-    CardHeader,
   } from "@material-ui/core";
 
 import Container from '@material-ui/core/Container';
 import React, { useState } from "react";
-// import { createNewCompany} from '../../remote/trade-stars/trade-stars-functions';
-
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 
 
-import{Link, useHistory} from 'react-router-dom'
+import{ useHistory} from 'react-router-dom'
 import { createNewCompany } from '../../remote/trade-stars/company-register-functions';
 import { User } from '../../models/User';
 import { Company } from '../../models/Company';
@@ -49,6 +41,7 @@ const linkStyle = {
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
         minWidth: 275,
+        background: "#e0a150",
       },
     paper: {
       marginTop: theme.spacing(8),
@@ -79,6 +72,9 @@ const useStyles = makeStyles((theme: Theme) => ({
       selectEmpty: {
         marginTop: theme.spacing(2),
     },
+    head: {
+        fontWeight: 'bold'
+    },
 }),
 );
   
@@ -99,11 +95,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     const handlecompanyTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         changeCompanyType(e.target.value);
     };
-
-
-
-
-
 
     function clickHandler() {
         console.log('Button was clicked');
@@ -147,10 +138,10 @@ const useStyles = makeStyles((theme: Theme) => ({
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
 
-                </Avatar>
-                <Typography component="h1" variant="h5">
+                </Avatar><br></br>
+                <Typography className={classes.head} component="h1" variant="h5">
                     Tradesmen Registration Continued
-                </Typography>
+                </Typography><br></br>
                 <form onSubmit={handleSubmitTradesmenDesc} noValidate autoComplete="off">
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
@@ -179,7 +170,7 @@ const useStyles = makeStyles((theme: Theme) => ({
                                 autoComplete="companyType" />
                         </Grid> */}
 
-                    </Grid>
+                    </Grid><br></br>
                     <Button
                         type="submit"
                         fullWidth

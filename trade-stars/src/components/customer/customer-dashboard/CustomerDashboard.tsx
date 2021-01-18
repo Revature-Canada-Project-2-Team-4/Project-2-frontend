@@ -1,25 +1,17 @@
-import { Button, makeStyles, CardActionArea, CardActions, CardContent, CardMedia, Typography, CardHeader, Grid } from '@material-ui/core';
+import { Button, makeStyles, CardActionArea, CardActions, CardContent, Typography, Grid } from '@material-ui/core';
 import Card from '@material-ui/core/Card/Card';
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router,Link, Route, Switch, useHistory, useRouteMatch } from "react-router-dom";
+import { BrowserRouter as Router, useHistory } from "react-router-dom";
 import { Company } from '../../../models/Company';
 import { Service } from '../../../models/Service';
 import { User } from '../../../models/User';
 import { getAllServicesTypes, getAllTradeServices } from '../../../remote/trade-stars/ts-services-functions';
 import RateReviewIcon from '@material-ui/icons/RateReview';
-import BusinessCenterRoundedIcon from '@material-ui/icons/BusinessCenterRounded';
 import BuildRoundedIcon from '@material-ui/icons/BuildRounded';
 import { createStyles, Theme } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import { ServiceTypes } from '../../../models/ServiceTypes';
 import EventIcon from "@material-ui/icons/Event";
 import ViewListIcon from '@material-ui/icons/ViewList';
-import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
-import { BookAppointment } from '../../book-appointment/BookAppointment';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,6 +24,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     root: {
       maxWidth: 950,
+      background: "#fff2be",
+    },
+    text: {
+      color: "#fff2be",
     },
   })
 );
@@ -80,17 +76,19 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (p
   }
     return (
       <>
-      <h1>Services</h1>
+      <h1 className={classes.text} >Services</h1>
         
         <div>
         {(viewServices) ? (viewServices.map((serv) => (
+          <div>
       <Card className={classes.root} key={serv.serviceId} >
-      
+
+
       <CardActionArea >
       
         <CardContent >
-          <div style={{backgroundColor: '#9013fe',borderRadius:25}}  >
-          <Typography gutterBottom variant="h4" component="h2"  align='left' >
+          <div style={{backgroundColor: '#000000',borderRadius:25}}  >
+          <Typography className={classes.text} gutterBottom variant="h4" component="h2"  align='left' >
           &nbsp; <BuildRoundedIcon color="secondary" />&nbsp; {serv.providedBy.companyName}
           </Typography>
           </div>
@@ -101,7 +99,7 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (p
               
               spacing={0}
             >
-                <Typography variant="h6" component="p" align='left'>
+                <Typography  variant="h6" component="p" align='left'>
                 Owner of the company :  {serv.providedBy.companyOwner.firstName}
                 </Typography>
                 <Typography variant="h6"  component="p" align='left'>
@@ -141,35 +139,37 @@ export const CustomerDashboard: React.FunctionComponent<ICustomerDashboard> = (p
             
               <Button style={{
               borderRadius: 25,
-              backgroundColor: "#9013fe",
+              backgroundColor: "#000000",
               padding: "13px 26px",
               fontSize: "14px"
-          }}
+          }} className={classes.text}
           variant="contained" onClick={() => {BookAppointment(serv); }} >
                  <EventIcon />&nbsp; Book an Appointment
               </Button>
               
               <Button style={{
               borderRadius: 25,
-              backgroundColor: "#FFFF00",
+              backgroundColor: "#000000",
               padding: "13px 26px",
               fontSize: "14px"
-          }}
+          }} className={classes.text}
           variant="contained" onClick={() => {ViewReview(serv.providedBy); }}>
                <ViewListIcon/> &nbsp;  View Reviews
               </Button>
               <Button style={{
               borderRadius: 25,
-              backgroundColor: "#FFFF00",
+              backgroundColor: "#000000",
               padding: "13px 26px",
               fontSize: "14px"
-          }}
+          }} className={classes.text}
           variant="contained" onClick={() => {AddReview(serv.providedBy); }}>
                 <RateReviewIcon /> &nbsp; Give a review
               </Button>
               </CardActions>
               
               </Card>
+              <br></br>
+              </div>
               ))) : (
           <Card className={classes.root} key={1}> 
             <CardActionArea>

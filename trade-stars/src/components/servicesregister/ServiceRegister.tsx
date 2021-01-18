@@ -10,23 +10,18 @@ import Typography from '@material-ui/core/Typography';
 import {
     Card,
     CardContent,
-    CardHeader,
   } from "@material-ui/core";
 
 import Container from '@material-ui/core/Container';
 import React, { useState } from "react";
-// import { createNewCompany} from '../../remote/trade-stars/trade-stars-functions';
-
 import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 
 
-import{Link, useHistory} from 'react-router-dom'
-import { createNewCompany } from '../../remote/trade-stars/company-register-functions';
+import{useHistory} from 'react-router-dom'
+
 import { User } from '../../models/User';
 import { Company } from '../../models/Company';
 import { createNewService } from '../../remote/trade-stars/create-service';
@@ -51,6 +46,8 @@ const linkStyle = {
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
         minWidth: 275,
+        background: '#e0a150',
+        maxHeight: 500,
       },
     paper: {
       marginTop: theme.spacing(8),
@@ -81,6 +78,10 @@ const useStyles = makeStyles((theme: Theme) => ({
       selectEmpty: {
         marginTop: theme.spacing(2),
     },
+    head: {
+      fontWeight: 'bold'
+  },
+    
 }),
 );
   
@@ -150,10 +151,30 @@ const useStyles = makeStyles((theme: Theme) => ({
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
 
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                    Services By Company
-                </Typography>
+                </Avatar><br></br>
+                <Typography className={classes.head} component="h1" variant="h5">
+                    What services are you offering ?
+                </Typography><br></br>
+                <FormControl variant="outlined" >
+              <InputLabel htmlFor="outlined-type-native-simple">Type</InputLabel>
+              <Select
+               
+                native
+                value={serviceType}
+                onChange={handleServiceTypeChange}
+                label="Service Type"
+                inputProps={{
+                  name: "type",
+                  id: "outlined-type-native-simple",
+                }}
+              >
+                <option aria-label="None" value="" />
+                <option value={1}>plumber</option>
+                <option value={2}>electrician</option>
+                <option value={3}>painter</option>
+                <option value={4}>contractor</option>
+              </Select><br></br>
+            </FormControl>
                 <form onSubmit={handleService} noValidate autoComplete="off">
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
@@ -171,25 +192,7 @@ const useStyles = makeStyles((theme: Theme) => ({
                                 autoComplete="servicePrice" />
                         </Grid> 
                         <Grid item>
-            <FormControl variant="outlined">
-              <InputLabel htmlFor="outlined-type-native-simple">Type</InputLabel>
-              <Select
-                native
-                value={serviceType}
-                onChange={handleServiceTypeChange}
-                label="Service Type"
-                inputProps={{
-                  name: "type",
-                  id: "outlined-type-native-simple",
-                }}
-              >
-                <option aria-label="None" value="" />
-                <option value={1}>plumber</option>
-                <option value={2}>electrician</option>
-                <option value={3}>painter</option>
-                <option value={4}>contractor</option>
-              </Select>
-            </FormControl>
+            
           </Grid>
                         
 

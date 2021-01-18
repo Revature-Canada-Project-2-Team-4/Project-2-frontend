@@ -10,22 +10,16 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
 import InfoIcon from "@material-ui/icons/Info";
 import EventIcon from "@material-ui/icons/Event";
 import {
   BrowserRouter as Router,
-  Link,
-  Redirect,
   Route,
   Switch,
   useHistory,
   useRouteMatch,
 } from "react-router-dom";
-import { Button } from "@material-ui/core";
-import { ViewAppointments } from "../customer/view-app/ViewAppointments";
-import StarsIcon from '@material-ui/icons/Stars';
+import { ViewAppointments } from "../customer/view-app/ViewAppointments"
 import { CustomerInfo } from "../customer/CustomerInfo";
 import { TradesmanProfile } from "../tradesman/profile/TradesmanProfile";
 import { TradesmanDashboard } from "../tradesman/TradesmanDashboard";
@@ -36,7 +30,6 @@ import RateReviewIcon from "@material-ui/icons/RateReview";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { ApproveAppointments } from "../approvereject/ApproveAppointments";
-import HomeIcon from '@material-ui/icons/Home';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import { CustomerDashboard } from "../customer/customer-dashboard/CustomerDashboard";
@@ -67,7 +60,7 @@ const useStyles = makeStyles((theme: Theme) =>
     drawerContainer: {
       overflow: "auto",
       background: '#e0a150',
-      minHeight: '100%',
+      minHeight: '89.7%',
       fontWeight: 'bold'
     },
     content: {
@@ -80,7 +73,13 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: 50
     },
     infoIcon: {
-      color: '#33ab3d'
+      color: '#0045ff'
+    },
+    scheduleIcon: {
+      color: '#0045ff'
+    },
+    businessIcon: {
+      color: '#0045ff'
     },
     headerText: {
       color: "#e0a150",
@@ -189,9 +188,9 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
                       {index === 0 ? (
                         <InfoIcon className={classes.infoIcon}/>
                       ) : index === 1 ? (
-                        <ScheduleIcon color="primary"/>
+                        <ScheduleIcon className={classes.scheduleIcon}/>
                       ) : index === 2 ? (
-                        <BusinessCenterIcon color="primary"/>
+                        <BusinessCenterIcon className={classes.businessIcon}/>
                       ) : (
                         <ExitToAppIcon color="secondary"/>
                       )}
@@ -219,15 +218,15 @@ export const ClippedDrawer: React.FunctionComponent<IClippedDrawerProps> = (
                 >
                   <ListItemIcon>
                     {index === 0 ? (
-                      <AccountCircleIcon />
+                      <AccountCircleIcon className={classes.infoIcon}/>
                     ) : index === 1 ? (
-                      <RateReviewIcon />
+                      <RateReviewIcon className={classes.infoIcon}/>
                     ) : index === 2 ? (
-                      <ScheduleIcon />
+                      <ScheduleIcon className={classes.infoIcon}/>
                     ) : index === 3 ? (
-                      <EventIcon />
+                      <EventIcon className={classes.infoIcon}/>
                     ) : (
-                      <ExitToAppIcon />
+                      <ExitToAppIcon color="secondary"/>
                     )}
                   </ListItemIcon>
                   <ListItemText primary={text} />

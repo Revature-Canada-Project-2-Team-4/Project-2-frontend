@@ -3,7 +3,6 @@ import {
   Button,
   Card,
   CardContent,
-  CardHeader,
   Grid,
   makeStyles,
   TextField,
@@ -12,7 +11,6 @@ import {
 import { tsLogin } from "../../remote/trade-stars/trade-stars-functions";
 import { User } from "../../models/User";
 import { useHistory } from "react-router";
-import { Link } from "react-router-dom";
 
 interface ILoginProps {
   updateCurrentUser: (u: User) => void;

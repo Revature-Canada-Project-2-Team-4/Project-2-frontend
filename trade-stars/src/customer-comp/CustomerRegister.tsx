@@ -12,6 +12,7 @@ import React, { useState } from "react";
 import { createNewCustomer } from '../remote/trade-stars/trade-stars-functions';
 import{useHistory} from 'react-router-dom'
 import { User } from '../models/User';
+import { Card } from '@material-ui/core';
 
 interface ICustomerRegisterProps {
   updateCurrentUser: (u: User) => void;
@@ -35,6 +36,12 @@ function Copyright() {
 }
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    minWidth: 275,
+    maxHeight: 575,
+    background: "#e0a150",
+    
+  },
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
@@ -52,6 +59,9 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  hd:{
+    fontWeight: 'bold'
+  }
 }));
 
 export const  Register: React.FunctionComponent<ICustomerRegisterProps> = (props) => {
@@ -108,13 +118,14 @@ export const  Register: React.FunctionComponent<ICustomerRegisterProps> = (props
     };
 
   return (
+    <Card className={classes.root}>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
     
         </Avatar>
-        <Typography component="h1" variant="h6">
+        <Typography className={classes.hd} component="h1" variant="h6">
           Customer Registration
         </Typography>
       <br></br>
@@ -198,18 +209,13 @@ export const  Register: React.FunctionComponent<ICustomerRegisterProps> = (props
           >
             Register
           </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link href="#" variant="body2">
-                Already have an account? Sign in
-              </Link>
-            </Grid>
-          </Grid>
+         
         </form>
       </div>
-      <Box mt={5}>
-        <Copyright />
+      <Box mt={3}>
+        
       </Box>
     </Container>
+    </Card>
   );
 }

@@ -53,7 +53,6 @@ export const LandingPage: React.FunctionComponent<any> = (props) => {
       <img src={process.env.PUBLIC_URL + '/logo2.png'} alt="logo"  className={classes.mainLogo}/>
     </div>
     <div>
-      
       <Card className={classes.root }>
         <CardContent>
           <Typography className={classes.pos} variant="h4" component="h1">

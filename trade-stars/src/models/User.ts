@@ -1,11 +1,15 @@
+import { UserRoles } from "./UserRoles"
+
 export class User{
     userId: number
     firstName: string
     lastName: string
     username: string
     password: string
-    userRoleId: number    
+    email: string
+    userRole: UserRoles
 }
+
 
 
     

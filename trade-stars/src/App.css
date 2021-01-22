@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  
 }
 
 .App-logo {
@@ -15,6 +16,7 @@
 
 .App-header {
   background-color: #282c34;
+  background-image: url('tradesmen_background.jpg');
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -22,6 +24,10 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
 }
 
 .App-link {
